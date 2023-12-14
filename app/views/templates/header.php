@@ -1,3 +1,11 @@
+<?php 
+if (!session_id()) session_start();
+
+if (!isset($_SESSION["name"])) {
+    header("Location:".BASEURL."home/login");
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -146,14 +154,13 @@
         <li class="nav-item dropdown pe-3">
 
           <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
-            <img src="<?= BASEURL ?>img/profile-img.jpg" alt="Profile" class="rounded-circle">
-            <span class="d-none d-md-block dropdown-toggle ps-2">K. Anderson</span>
+            <span class="d-none d-md-block dropdown-toggle ps-2"><?=$_SESSION['name']?></span>
           </a><!-- End Profile Iamge Icon -->
 
           <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
             <li class="dropdown-header">
-              <h6>Kevin Anderson</h6>
-              <span>Web Designer</span>
+              <h6><?=$_SESSION['name']?></h6>
+              <span></span>
             </li>
             <li>
               <hr class="dropdown-divider">
@@ -190,7 +197,7 @@
             </li>
 
             <li>
-              <a class="dropdown-item d-flex align-items-center" href="../../../">
+              <a class="dropdown-item d-flex align-items-center" href="<?=BASEURL?>home/logout">
                 <i class="bi bi-box-arrow-right"></i>
                 <span>Sign Out</span>
               </a>
@@ -204,4 +211,6 @@
 
   </header><!-- End Header -->
 
-  <?php include 'sidebar.php'; ?>
+  <?php include 'sidebar.php'; 
+  
+  ?>

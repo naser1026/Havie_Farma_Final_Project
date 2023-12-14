@@ -4,7 +4,7 @@
     <ul class="sidebar-nav" id="sidebar-nav">
 
       <li class="nav-item">
-        <a class="nav-link " href="<?=BASEURL?>dashboard/index">
+        <a class="nav-link " href="<?=BASEURL?>home/index">
           <i class="bi bi-grid"></i>
           <span>Dashboard</span>
         </a>

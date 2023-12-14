@@ -22,22 +22,15 @@ class App {
             if(method_exists($this->controller, $url[1])) {
                 $this->method = $url[1];
                 unset($url[1]);
-                // var_dump($url);
             }
         }
 
         // Jalankan controller dan method serta kirimkan parameternya
         if (!empty($url)) {
             $this->params = array_values($url);
-            // var_dump($this->params); 
+        
         }
-
-
         call_user_func_array([$this->controller, $this->method], $this->params);
-
-
-
-
         
     }
 
