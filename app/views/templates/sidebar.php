@@ -20,6 +20,31 @@
               <i class="bi bi-circle"></i><span>Data Produk</span>
             </a>
           </li>
+          <li>
+            <a href="<?=BASEURL?>masterdata/mastercategory">
+              <i class="bi bi-circle"></i><span>Data Kategori</span>
+            </a>
+          </li>
+          <li>
+            <a href="<?=BASEURL?>masterdata/masterunit">
+              <i class="bi bi-circle"></i><span>Data Satuan</span>
+            </a>
+          </li>
+          <li>
+            <a href="<?=BASEURL?>masterdata/masterwarehouse">
+              <i class="bi bi-circle"></i><span>Data Gudang</span>
+            </a>
+          </li>
+          <li>
+            <a href="<?=BASEURL?>masterdata/masterrack">
+              <i class="bi bi-circle"></i><span>Data Rak</span>
+            </a>
+          </li>
+          <li>
+            <a href="<?=BASEURL?>masterdata/mastersuplier">
+              <i class="bi bi-circle"></i><span>Data Suplier</span>
+            </a>
+          </li>
         </ul>
       </li><!-- End Components Nav -->
 
@@ -28,14 +53,14 @@
       <li class="nav-item">
         <a class="nav-link collapsed" href="users-profile.html">
           <i class="bi bi-ticket-perforated"></i>
-          <span>Stok Tiket</span>
+          <span>Kasir</span>
         </a>
       </li><!-- End Profile Page Nav -->
       
       <li class="nav-item">
         <a class="nav-link collapsed" href="../pembeliantiket/pembeliantiket">
           <i class="bi bi-bag"></i>
-          <span>Pembelian Tiket</span>
+          <span>Laporan</span>
         </a>
       </li><!-- End Profile Page Nav -->
 

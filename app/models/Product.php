@@ -14,8 +14,12 @@ class Product
 
     public function getAllProduct()
     {
-        $this->db->query("SELECT * FROM " .$this->table);
+        $this->db->query("SELECT name_tmp,name_tmc,name_tmr,name_tmw,name_tms, id_product_tmp,selling_price_tmp,expired_date_tmp, stock_tmp,img_tmp FROM `tbl_m_product` join tbl_m_category on tbl_m_product.id_category_tmc = tbl_m_category.id_category_tmc join tbl_m_warehouse on tbl_m_product.id_warehouse_tmw = tbl_m_warehouse.id_warehouse_tmw join tbl_m_suplier on tbl_m_product.id_suplier_tms = tbl_m_suplier.id_suplier_tms join tbl_m_rack on tbl_m_product.id_rack_tmr = tbl_m_rack.id_rack_tmr" );
+    // {
+    //     $this->db->query("SELECT name_tmp,id_product_tmp,purchase_price_tmp,name_tmw,name_tmr,expire_date_tmp, name_tms, stock_tmp,img_tmp, name_tmc FROM `tbl_m_product` join tbl_m_category on tbl_m_product.id_category_tmc = tbl_m_category.id_category_tmc join tbl_m_suplier on tbl_m_product.id_suplier_tms = tbl_m_suplier.id_suplier_tmc join tbl_m_warehouse on tbl_m_product.id_warehouse_tmc = tbl_m_warehouse.id_warehouse_tmc join tbl_m_rack on tbl_m_product.id_rack_tmc = tbl_m_rack.id_rack_tmc join tbl_m_category on tbl_m_product.id_unit_tmc = tbl_m_unit.id_unit_tmc" );
         return $this->db->resultSet();
+
+   
     }
 
     public function addProduct($post, $files) 
@@ -65,5 +69,10 @@ class Product
 
 
         return $this->db->rowCount();
+    }
+
+    public function editProduct($id)
+    {
+      echo "Ini Edit";
     }
 }

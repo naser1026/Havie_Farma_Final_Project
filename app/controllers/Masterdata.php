@@ -17,6 +17,22 @@ class Masterdata extends Controller
         $this->view('templates/footer');
     }
 
+    public function mastercategory() {
+        echo "Ini Master Kategori";
+    }
+    public function masterunit() {
+        echo "Ini Master Satuan";
+    }
+    public function masterwarehouse() {
+        echo "Ini Master Gudang";
+    }
+    public function masterrack() {
+        echo "Ini Master Rak";
+    }
+    public function mastersuplier() {
+        echo "Ini Master Suplier";
+    }
+
     public function add() 
     {
         if($this->model('Product')->addProduct($_POST, $_FILES) > 0 )
@@ -34,6 +50,15 @@ class Masterdata extends Controller
             header('Location: '. BASEURL.'masterdata/masterproduct');
             exit;
         } 
+    }
+
+    public function edit($id)
+    {
+        if($this->model('Product')->editProduct($id))
+        {
+            echo "INI EDIT";
+            die;
+        }
     }
 
     

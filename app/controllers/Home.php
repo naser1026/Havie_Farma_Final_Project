@@ -41,4 +41,9 @@ class Home extends Controller
         $this->model('User')->userLogout();
         $this->view('home/login');
     }
+
+    public function register()
+    {
+        $this->view('home/register');
+    }
 }

@@ -4,7 +4,7 @@
         <nav>
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="dashboard.php">Home</a></li>
-                <li class="breadcrumb-item active">Dashboard</li>
+                <li class="breadcrumb-item active">Data Produk</li>
             </ol>
         </nav>
     </div><!-- End Page Title -->
@@ -58,16 +58,19 @@
                                 <?= $row['selling_price_tmp']; ?>
                             </td>
                             <td>
-                                <?= $row['id_category_tmc'] ?>
+                                <?= $row['name_tmc'] ?>
                             </td>
                             <td>
-                                <?= $row['id_warehouse_tmw']; ?>
+                                <?= $row['name_tmw'] ?>
                             </td>
                             <td>
-                                <?= $row['id_rack_tmr']; ?>
+                                <?= $row['name_tmr'] ?>
+                                
                             </td>
                             <td>
-                                <?= $row['id_suplier_tms']; ?>
+                                <?= $row['name_tms'] ?>
+                    
+                                
                             </td>
                             <td>
                                 <?= $row['stock_tmp']; ?>
@@ -78,7 +81,7 @@
                             <td><img width=100 src="<?=BASEURL?>img/product/<?= $row['img_tmp']; ?>" alt=""></td>
 
                             <td>
-                                <a class="btn btn-success" href="#" role="button">Edit</a>
+                                <a class="btn btn-success" href="<?=BASEURL?>masterdata/edit/<?=$row['id_product_tmp']?>" role="button">Edit</a>
                                 <a class="btn btn-danger" href="<?=BASEURL?>masterdata/delete/<?=$row['id_product_tmp']?>" role="button" onclick="return confirm('Hapus produk dengan id <?=$row['id_product_tmp']?>')">Hapus</a>
                             </td>
                         </tr>

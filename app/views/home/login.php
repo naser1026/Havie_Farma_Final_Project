@@ -77,7 +77,7 @@
                       <button class="btn btn-primary w-100" type="submit" name = 'submit' id = "submit">Login</button>
                     </div>
                     <div class="col-12">
-                      <p class="small mb-0">Tidak punya akun? <a href="register">Klik disini</a></p>
+                      <p class="small mb-0">Tidak punya akun? <a href="<?=BASEURL?>home/register">Klik disini</a></p>
                     </div>
                   </form>
 
