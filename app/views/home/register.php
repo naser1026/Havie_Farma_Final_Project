@@ -56,7 +56,7 @@
                     <p class="text-center small">Silahkan masukan data diri anda</p>
                   </div>
 
-                  <form class="row g-3 needs-validation" action="<?BASEURL?>home/add" method = 'post'>
+                  <form class="row g-3 needs-validation" action="<?=BASEURL?>home/add" method = 'post'>
                     <div class="col-12">
                       <label for="yourName" class="form-label">Nama Lengkap</label>
                       <input type="text" name="name" class="form-control" id="yourName" required>
@@ -89,11 +89,11 @@
                       <input type="password" name="password" id="password" class="form-control" id="yourPassword" required>
                       <div class="invalid-feedback">Masukan password</div>
                     </div>
-                        <?php Flasher::wrongPassword();?>
                     <div class="col-12">
                       <label for="yourPassword" class="form-label">Konfirmasi Password</label>
                       <input type="password" name="confirm" id = "confirm" class="form-control" id="yourPassword" required>
                     </div>
+                    <?php Flasher::wrongPassword();?>
 
                     <div class="col-12">
                       <button class="btn btn-primary w-100" name = 'submit' type="submit">Create Account</button>

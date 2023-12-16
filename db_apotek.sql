@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.1
+-- version 5.2.0
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Generation Time: Dec 13, 2023 at 05:00 AM
--- Server version: 10.4.32-MariaDB
--- PHP Version: 8.0.30
+-- Host: localhost
+-- Generation Time: Dec 16, 2023 at 09:50 AM
+-- Server version: 10.4.24-MariaDB
+-- PHP Version: 8.1.6
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -37,7 +37,7 @@ CREATE TABLE `tbl_h_user` (
   `role_thu` enum('USER','ADMIN') NOT NULL,
   `profile_picture_thu` varchar(500) NOT NULL,
   `created_date_thu` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -49,7 +49,7 @@ CREATE TABLE `tbl_m_category` (
   `id_category_tmc` int(11) NOT NULL,
   `name_tmc` varchar(100) NOT NULL,
   `description_tmc` varchar(300) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `tbl_m_category`
@@ -71,31 +71,34 @@ INSERT INTO `tbl_m_category` (`id_category_tmc`, `name_tmc`, `description_tmc`) 
 
 CREATE TABLE `tbl_m_product` (
   `id_product_tmp` int(11) NOT NULL,
+  `production_code_tmp` int(20) NOT NULL,
   `name_tmp` varchar(200) NOT NULL,
-  `id_category_tmc` int(11) NOT NULL,
-  `unit_tmp` enum('Strip','Botol','Ampul','Vial','Tube') NOT NULL,
+  `id_category_tmp` int(11) NOT NULL,
+  `id_unit_tmp` int(11) NOT NULL,
   `purchase_price_tmp` int(30) NOT NULL,
   `selling_price_tmp` int(30) NOT NULL,
-  `id_suplier_tms` int(11) NOT NULL,
+  `id_suplier_tmp` int(11) NOT NULL,
   `stock_tmp` int(10) NOT NULL,
-  `id_warehouse_tmw` int(11) NOT NULL,
-  `id_rack_tmr` int(11) NOT NULL,
+  `id_warehouse_tmp` int(11) NOT NULL,
+  `id_rack_tmp` int(11) NOT NULL,
+  `active_zat_tmp` varchar(100) DEFAULT NULL,
+  `description_tmp` varchar(200) NOT NULL,
   `date_added_tmp` timestamp NOT NULL DEFAULT current_timestamp(),
-  `added_by_tmp` varchar(50) NOT NULL,
+  `added_by_tmp` varchar(50) DEFAULT NULL,
   `expired_date_tmp` date NOT NULL,
   `img_tmp` varchar(200) DEFAULT 'default.png',
   `update_by_tmp` varchar(50) DEFAULT NULL,
   `update_date_tmp` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `tbl_m_product`
 --
 
-INSERT INTO `tbl_m_product` (`id_product_tmp`, `name_tmp`, `id_category_tmc`, `unit_tmp`, `purchase_price_tmp`, `selling_price_tmp`, `id_suplier_tms`, `stock_tmp`, `id_warehouse_tmw`, `id_rack_tmr`, `date_added_tmp`, `added_by_tmp`, `expired_date_tmp`, `img_tmp`, `update_by_tmp`, `update_date_tmp`) VALUES
-(12345677, 'Sanmol', 1, 'Botol', 16000, 18000, 2, 20, 1, 2, '2023-12-05 10:55:28', 'Naser Setiawan', '2023-12-07', '6571a8769fe53_sanmol.png', 'Naser Setiawan', '2023-12-07 11:11:50'),
-(12345678, 'Paracetamol', 1, 'Strip', 12000, 15000, 3, 20, 1, 2, '2023-12-04 04:59:22', 'Naser Setiawan', '2023-12-07', '6571a8965eaa2_paracetamol.png', 'Naser Setiawan', '2023-12-07 11:14:04'),
-(12345679, 'Amoxilin', 1, 'Strip', 15000, 18000, 3, 30, 1, 2, '2023-12-04 05:00:28', 'Naser Setiawan', '2023-12-07', '6571a89f32600_amoxillin.png', 'Naser Setiawan', '2023-12-07 11:14:08');
+INSERT INTO `tbl_m_product` (`id_product_tmp`, `production_code_tmp`, `name_tmp`, `id_category_tmp`, `id_unit_tmp`, `purchase_price_tmp`, `selling_price_tmp`, `id_suplier_tmp`, `stock_tmp`, `id_warehouse_tmp`, `id_rack_tmp`, `active_zat_tmp`, `description_tmp`, `date_added_tmp`, `added_by_tmp`, `expired_date_tmp`, `img_tmp`, `update_by_tmp`, `update_date_tmp`) VALUES
+(1, 22222, 'Sanmol', 2, 2, 12000, 15000, 3, 20, 1, 2, 'Cloroform', 'Simpan ditempat yang sejuk', '2023-12-04 04:59:22', 'Naser Setiawan', '2023-12-07', 'default.png', 'Naser Setiawan', '2023-12-15 14:22:48'),
+(3, 1231111, 'Mixagrip', 3, 1, 1000, 3000, 3, 10, 1, 8, 'Tidak Ada', 'Enak pakai kecap', '2023-12-15 14:30:51', NULL, '2023-12-19', 'default.png', NULL, '2023-12-15 14:58:11'),
+(4, 1111111, 'Paramex', 2, 2, 3000, 7000, 4, 10, 1, 2, 'Tidak Ada', 'Obat Sakit Kepala', '2023-12-15 14:56:52', NULL, '2023-12-20', 'default.png', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -112,7 +115,7 @@ CREATE TABLE `tbl_m_rack` (
   `created_date_tmr` timestamp NOT NULL DEFAULT current_timestamp(),
   `status_activated_tmr` tinyint(4) NOT NULL DEFAULT 0,
   `status_deleted_tmr` tinyint(4) NOT NULL DEFAULT 0
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `tbl_m_rack`
@@ -145,7 +148,7 @@ CREATE TABLE `tbl_m_suplier` (
   `phone_number_tms` varchar(15) NOT NULL,
   `email_tms` varchar(100) NOT NULL,
   `website_tms` varchar(50) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `tbl_m_suplier`
@@ -160,12 +163,32 @@ INSERT INTO `tbl_m_suplier` (`id_suplier_tms`, `name_tms`, `address_tms`, `phone
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `tbl_m_unit`
+--
+
+CREATE TABLE `tbl_m_unit` (
+  `id_unit_tmun` int(11) NOT NULL,
+  `name_tmun` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `tbl_m_unit`
+--
+
+INSERT INTO `tbl_m_unit` (`id_unit_tmun`, `name_tmun`) VALUES
+(1, 'Botol'),
+(2, 'Strip'),
+(3, 'Pcs');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `tbl_m_user`
 --
 
 CREATE TABLE `tbl_m_user` (
   `id_tmu` int(11) NOT NULL,
-  `name_tmu` varchar(50) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
+  `name_tmu` varchar(50) CHARACTER SET latin1 NOT NULL,
   `phone_number_tmu` varchar(20) NOT NULL,
   `email_tmu` varchar(100) NOT NULL,
   `gender_tmu` enum('LAKI-LAKI','PEREMPUAN') NOT NULL,
@@ -178,7 +201,7 @@ CREATE TABLE `tbl_m_user` (
   `profile_picture_tmu` varchar(500) DEFAULT 'default.png',
   `update_by_tmu` varchar(50) DEFAULT NULL,
   `update_date_tmu` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `tbl_m_user`
@@ -203,7 +226,7 @@ CREATE TABLE `tbl_m_warehouse` (
   `created_date_tmw` timestamp NOT NULL DEFAULT current_timestamp(),
   `status_activated_tmw` tinyint(4) NOT NULL DEFAULT 0,
   `status_deleted_tmw` tinyint(4) NOT NULL DEFAULT 0
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `tbl_m_warehouse`
@@ -223,7 +246,7 @@ CREATE TABLE `tbl_t_buy_product` (
   `id_product_tmp` int(11) NOT NULL,
   `id_tmu` int(11) NOT NULL,
   `date_buy_ttbp` timestamp NOT NULL DEFAULT current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -237,7 +260,7 @@ CREATE TABLE `tbl_t_purchase_product` (
   `product_name_ttpp` varchar(50) NOT NULL,
   `amount_ttpp` int(20) NOT NULL,
   `price_ttpp` int(20) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Indexes for dumped tables
@@ -254,10 +277,11 @@ ALTER TABLE `tbl_m_category`
 --
 ALTER TABLE `tbl_m_product`
   ADD PRIMARY KEY (`id_product_tmp`),
-  ADD KEY `fk_id_suplier_tms_tmp` (`id_suplier_tms`),
-  ADD KEY `fk_id_category_tmc_tmp` (`id_category_tmc`),
-  ADD KEY `fk_id_warehouse_tmw_tmp` (`id_warehouse_tmw`),
-  ADD KEY `fk_id_rack_tmr_tmp` (`id_rack_tmr`);
+  ADD KEY `fk_id_suplier_tms_tmp` (`id_suplier_tmp`),
+  ADD KEY `fk_id_category_tmc_tmp` (`id_category_tmp`),
+  ADD KEY `fk_id_warehouse_tmw_tmp` (`id_warehouse_tmp`),
+  ADD KEY `fk_id_rack_tmr_tmp` (`id_rack_tmp`),
+  ADD KEY `fk_id_unit_tmun_tmp` (`id_unit_tmp`);
 
 --
 -- Indexes for table `tbl_m_rack`
@@ -271,6 +295,12 @@ ALTER TABLE `tbl_m_rack`
 --
 ALTER TABLE `tbl_m_suplier`
   ADD PRIMARY KEY (`id_suplier_tms`);
+
+--
+-- Indexes for table `tbl_m_unit`
+--
+ALTER TABLE `tbl_m_unit`
+  ADD PRIMARY KEY (`id_unit_tmun`);
 
 --
 -- Indexes for table `tbl_m_user`
@@ -310,6 +340,12 @@ ALTER TABLE `tbl_m_category`
   MODIFY `id_category_tmc` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
+-- AUTO_INCREMENT for table `tbl_m_product`
+--
+ALTER TABLE `tbl_m_product`
+  MODIFY `id_product_tmp` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
 -- AUTO_INCREMENT for table `tbl_m_rack`
 --
 ALTER TABLE `tbl_m_rack`
@@ -320,6 +356,12 @@ ALTER TABLE `tbl_m_rack`
 --
 ALTER TABLE `tbl_m_suplier`
   MODIFY `id_suplier_tms` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- AUTO_INCREMENT for table `tbl_m_unit`
+--
+ALTER TABLE `tbl_m_unit`
+  MODIFY `id_unit_tmun` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `tbl_m_user`
@@ -353,23 +395,17 @@ ALTER TABLE `tbl_t_purchase_product`
 -- Constraints for table `tbl_m_product`
 --
 ALTER TABLE `tbl_m_product`
-  ADD CONSTRAINT `fk_id_category_tmc_tmp` FOREIGN KEY (`id_category_tmc`) REFERENCES `tbl_m_category` (`id_category_tmc`),
-  ADD CONSTRAINT `fk_id_rack_tmr_tmp` FOREIGN KEY (`id_rack_tmr`) REFERENCES `tbl_m_rack` (`id_rack_tmr`),
-  ADD CONSTRAINT `fk_id_suplier_tms_tmp` FOREIGN KEY (`id_suplier_tms`) REFERENCES `tbl_m_suplier` (`id_suplier_tms`),
-  ADD CONSTRAINT `fk_id_warehouse_tmw_tmp` FOREIGN KEY (`id_warehouse_tmw`) REFERENCES `tbl_m_warehouse` (`id_warehouse_tmw`);
+  ADD CONSTRAINT `fk_id_category_tmc_tmp` FOREIGN KEY (`id_category_tmp`) REFERENCES `tbl_m_category` (`id_category_tmc`),
+  ADD CONSTRAINT `fk_id_rack_tmr_tmp` FOREIGN KEY (`id_rack_tmp`) REFERENCES `tbl_m_rack` (`id_rack_tmr`),
+  ADD CONSTRAINT `fk_id_suplier_tms_tmp` FOREIGN KEY (`id_suplier_tmp`) REFERENCES `tbl_m_suplier` (`id_suplier_tms`),
+  ADD CONSTRAINT `fk_id_unit_tmun_tmp` FOREIGN KEY (`id_unit_tmp`) REFERENCES `tbl_m_unit` (`id_unit_tmun`),
+  ADD CONSTRAINT `fk_id_warehouse_tmw_tmp` FOREIGN KEY (`id_warehouse_tmp`) REFERENCES `tbl_m_warehouse` (`id_warehouse_tmw`);
 
 --
 -- Constraints for table `tbl_m_rack`
 --
 ALTER TABLE `tbl_m_rack`
   ADD CONSTRAINT `fk_id_warehouse_tmw_tmr` FOREIGN KEY (`id_warehouse_tmw`) REFERENCES `tbl_m_warehouse` (`id_warehouse_tmw`);
-
---
--- Constraints for table `tbl_t_buy_product`
---
-ALTER TABLE `tbl_t_buy_product`
-  ADD CONSTRAINT `fk_id_product_tmp_ttbp` FOREIGN KEY (`id_product_tmp`) REFERENCES `tbl_m_product` (`id_product_tmp`),
-  ADD CONSTRAINT `fk_id_tmu_ttbp` FOREIGN KEY (`id_tmu`) REFERENCES `tbl_m_user` (`id_tmu`);
 
 --
 -- Constraints for table `tbl_t_purchase_product`

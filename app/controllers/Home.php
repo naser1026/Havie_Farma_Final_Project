@@ -45,11 +45,14 @@ class Home extends Controller
 
     public function add() 
     {
-        if ($this->model('User')->addUser($_POST) > 0) 
-        {
-            header('Location: '.BASEURL.'home/register');
-        }else {
-            header('Location: '.BASEURL.'home/register');
-        };
+       if ($this->model('User')->addUser($_POST) > 0)
+       {
+        Flasher::setFlash('berhasil', 'success');
+        header('Location: '.BASEURL.'home/login');
+        exit;
+    }else {
+        Flasher::setFlash('gagal', 'danger');
+        header('Location: '.BASEURL.'home/login');
+       };
     }
 }

@@ -33,4 +33,15 @@ class Flasher {
           </div>';
         }
     }
+
+    public static function successRegister() 
+    {
+        if (isset($_SESSION['flash']))
+        {
+            echo '<div class="alert alert-success alert-dismissible fade show " role="alert"> Registrasi 
+            <strong>berhasil</strong>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+          </div>';
+        }
+    }
 }

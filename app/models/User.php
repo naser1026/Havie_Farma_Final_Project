@@ -49,8 +49,26 @@ class User
 
         if ($password != $confirm) {
             Flasher::setFlash();
-            return 0;
+            header('Location: '.BASEURL.'home/register');
+            die;
         }
+
+        $password = password_hash($password, PASSWORD_DEFAULT);
+
+        $query = "INSERT INTO tbl_m_user(name_tmu, phone_number_tmu, email_tmu, gender_tmu, address_tmu, password_tmu, created_date_tmu) 
+                    VALUES (:name,:phone_number,:email,:gender,:address,:password,current_timestamp())";
+        
+        $this->db->query($query);
+        $this->db->bind("password", $password);
+        $this->db->bind("name", $post["name"]);
+        $this->db->bind("phone_number", $post["phone_number"]);
+        $this->db->bind("email", $post["email"]);
+        $this->db->bind("gender", $post["gender"]);
+        $this->db->bind("address", $post["address"]);
+
+        $this->db->execute();
+
+        return $this->db->rowCount();
     }
 
 }

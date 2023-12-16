@@ -92,7 +92,7 @@
                                     data-bs-target="#staticBackdrop" role="button" data-id="<?=$row['id_product_tmp'];?>" data-url= "<?=BASEURL;?>">Edit</a>
                                 <a class="btn btn-danger" href="<?= BASEURL ?>masterdata/delete/<?= $row['id_product_tmp'] ?>"
                                     role="button"
-                                    onclick="return confirm('Hapus produk dengan id <?= $row['id_product_tmp'] ?>')">Hapus</a>
+                                    onclick="return confirm('Hapus <?= $row['name_tmp'] ?>')">Hapus</a>
                             </td>
                         </tr>
                     <?php endforeach; ?>
