@@ -14,8 +14,14 @@
 
 
             <!-- Start Ngoding Disini -->
+
+            <div class="row">
+                <div class="col-lg-6">
+                    <?php Flasher::flash(); ?>
+                </div>
+            </div>
             <div class='addproduct'>
-                <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                <button type="button" class="btn btn-primary addProduct" data-bs-toggle="modal"
                     data-bs-target="#staticBackdrop">Tambah Produk</button>
                 <br><br>
             </div>
@@ -49,7 +55,7 @@
                                 <?= $no++; ?>
                             </td>
                             <td>
-                                <?= $row['id_product_tmp']; ?>
+                                <?= $row['production_code_tmp']; ?>
                             </td>
                             <td>
                                 <?= $row['name_tmp']; ?>
@@ -65,12 +71,12 @@
                             </td>
                             <td>
                                 <?= $row['name_tmr'] ?>
-                                
+
                             </td>
                             <td>
                                 <?= $row['name_tms'] ?>
-                    
-                                
+
+
                             </td>
                             <td>
                                 <?= $row['stock_tmp']; ?>
@@ -78,11 +84,15 @@
                             <td>
                                 <?= $row['expired_date_tmp']; ?>
                             </td>
-                            <td><img width=100 src="<?=BASEURL?>img/product/<?= $row['img_tmp']; ?>" alt=""></td>
+                            <td><img width=100 src="<?= BASEURL ?>img/product/<?= $row['img_tmp']; ?>" alt=""></td>
 
                             <td>
-                                <a class="btn btn-success" href="<?=BASEURL?>masterdata/edit/<?=$row['id_product_tmp']?>" role="button">Edit</a>
-                                <a class="btn btn-danger" href="<?=BASEURL?>masterdata/delete/<?=$row['id_product_tmp']?>" role="button" onclick="return confirm('Hapus produk dengan id <?=$row['id_product_tmp']?>')">Hapus</a>
+                                <a class="btn btn-success changeModal"
+                                    href="#" data-bs-toggle="modal"
+                                    data-bs-target="#staticBackdrop" role="button" data-id="<?=$row['id_product_tmp'];?>" data-url= "<?=BASEURL;?>">Edit</a>
+                                <a class="btn btn-danger" href="<?= BASEURL ?>masterdata/delete/<?= $row['id_product_tmp'] ?>"
+                                    role="button"
+                                    onclick="return confirm('Hapus produk dengan id <?= $row['id_product_tmp'] ?>')">Hapus</a>
                             </td>
                         </tr>
                     <?php endforeach; ?>
@@ -120,30 +130,32 @@
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="staticBackdropLabel">Tambah Produk</h1>
+                    <h1 class="modal-title fs-5" id="staticBackdropLabel">Tambah Data Produk</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form action = "<?=BASEURL?>masterdata/add" method="post" enctype="multipart/form-data">
+                    <form action="<?= BASEURL ?>masterdata/add" method="post" enctype="multipart/form-data">
+                    <input type="hidden" id = 'id' name = 'id'>
+                    <input type="hidden" id = 'previous_img' name = 'previous_img'>
                         <div class="row mb-3">
                             <label class="col-sm-2 col-form-label">Nama Obat</label>
                             <div class="col-sm-10">
-                                <input type="text" name='name' class="form-control">
+                                <input type="text" name='name' id = 'name' class="form-control">
                             </div>
                         </div>
 
                         <div class="row mb-3">
                             <label class="col-sm-2 col-form-label">Kode Produksi</label>
                             <div class="col-sm-10">
-                                <input type="text" name='id' class="form-control">
+                                <input type="text" name='code' id = 'code' class="form-control">
                             </div>
                         </div>
 
                         <div class="row mb-3">
                             <label class="col-sm-2 col-form-label">Kategori</label>
                             <div class="col-sm-10">
-                                <select class=form-control name="category" id="">
-                                    <option selected>Pilih Kategori</option>
+                                <select class=form-control id ='category' name="category" id="">
+                                    <option selected value = "">Pilih Kategori</option>
                                     <?php
                                     foreach ($data['category'] as $row):
                                         ?>
@@ -154,12 +166,12 @@
                                 </select>
                             </div>
                         </div>
-                        
+
                         <div class="row mb-3">
                             <label class="col-sm-2 col-form-label">Satuan</label>
                             <div class="col-sm-10">
-                                <select class=form-control name="unit" id="">
-                                    <option selected>Pilih Satuan</option>
+                                <select class=form-control id = 'unit' name="unit" id="">
+                                    <option selected value = "">Pilih Satuan</option>
                                     <?php
                                     foreach ($data['unit'] as $row):
                                         ?>
@@ -174,15 +186,15 @@
                         <div class="row mb-3">
                             <label for="inputNumber" class="col-sm-2 col-form-label">Jumlah Obat</label>
                             <div class="col-sm-10">
-                                <input type="number" class="form-control" name='amount'>
+                                <input type="number" id = 'amount' class="form-control" name='amount'>
                             </div>
                         </div>
 
                         <div class="row mb-3">
                             <label class="col-sm-2 col-form-label">Suplier</label>
                             <div class="col-sm-10">
-                                <select class="form-control" name="suplier" id="">
-                                    <option selected>Pilih Suplier</option>
+                                <select class="form-control" id = 'suplier' name="suplier" >
+                                    <option selected value = "">Pilih Suplier</option>
                                     <?php
                                     foreach ($data['suplier'] as $row):
                                         ?>
@@ -197,50 +209,52 @@
                         <div class="row mb-3">
                             <label for="inputDate" class="col-sm-2 col-form-label">Tanggal Kadaluarsa</label>
                             <div class="col-sm-10">
-                                <input type="date" name = 'exp_date' class="form-control">
+                                <input type="date" name='exp_date' id = 'exp_date' class="form-control">
                             </div>
                         </div>
-                        
+
                         <div class="row mb-3">
                             <label for="inputDate" class="col-sm-2 col-form-label">Zat Aktif</label>
                             <div class="col-sm-10">
-                                <input type="text" name ='active_zat'  class="form-control">
+                                <input type="text" id = 'active_zat' name='active_zat' class="form-control">
                             </div>
                         </div>
-                        
+
                         <div class="row mb-3">
                             <label for="inputDate" class="col-sm-2 col-form-label">Deskripsi Tambahan</label>
                             <div class="col-sm-10">
-                                <input type="text" name = 'description'  class="form-control">
+                                <input type="text" id = 'description' name='description' class="form-control">
                             </div>
                         </div>
 
                         <div class="row mb-3">
                             <label for="inputNumber" class="col-sm-2 col-form-label">Harga Beli</label>
                             <div class="col-sm-10">
-                                <input type="number" name = 'purchase_price' class="form-control">
+                                <input type="number" id= 'purchase_price' name='purchase_price' class="form-control">
                             </div>
                         </div>
 
                         <div class="row mb-3">
                             <label for="inputNumber" class="col-sm-2 col-form-label">Harga Jual</label>
                             <div class="col-sm-10">
-                                <input type="number" name = "selling_price" class="form-control">
+                                <input type="number" id = 'selling_price'name="selling_price" class="form-control">
                             </div>
                         </div>
 
                         <div class="row mb-3">
                             <label class="col-sm-2 col-form-label">Gambar Produk</label>
                             <div class="col-sm-10">
-                                <input class="form-control" name='image'  type="file">
+                                <input class="form-control" name='image' type="file">
                             </div>
                         </div>
 
+                    
                         <div class="row mb-3 d-inline_block">
+
                             <label class="col-sm-2 col-form-label">Gudang</label>
                             <div class="col-sm-3">
-                                <select class="form-control" name="warehouse" id="">
-                                    <option selected>Pilih Gudang</option>
+                                <select class="form-control" name="warehouse" id="warehouse">
+                                    <option selected value="" >Pilih Gudang</option>
                                     <?php
                                     foreach ($data['warehouse'] as $row):
                                         ?>
@@ -250,11 +264,13 @@
                                     <?php endforeach; ?>
                                 </select>
                             </div>
+                        
 
+                       
                             <label class="col-sm-1 col-form-label">Rak</label>
                             <div class="col-sm-3">
-                                <select class="form-control" name="rack" id="">
-                                    <option selected>Pilih Rak</option>
+                                <select class="form-control" name="rack" id="rack">
+                                    <option selected value = "">Pilih Rak</option>
                                     <?php
                                     foreach ($data['rack'] as $row):
                                         ?>
@@ -263,13 +279,15 @@
                                         </option>
                                     <?php endforeach; ?>
                                 </select>
-                            </div>
+                           
                         </div>
+                    </div>
+                        
 
 
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
-                            <button type="submit" name = 'submit' class="btn btn-primary">Tambah</button>
+                            <button type="submit" name='submit' class="btn btn-primary " id="modalSubmit">Tambah</button>
                         </div>
                     </form>
                 </div>

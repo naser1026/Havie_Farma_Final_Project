@@ -11,7 +11,7 @@
   <meta content="" name="keywords">
 
   <!-- Favicons -->
-  <link href="<?=BASEURL?>img/logo.png" rel="icon">
+  <link href="<?=BASEURL?>img/icon.png" rel="icon">
 
   <!-- Google Fonts -->
   <link href="https://fonts.gstatic.com" rel="preconnect">
@@ -40,7 +40,7 @@
 
               <div class="d-flex justify-content-center py-4">
                 <a href="index.html" class="logo d-flex align-items-center w-auto">
-                  <img src="assets/img/logo.png" alt="">
+                  <img src="<?=BASEURL?>img/logoapotek.png" alt="">
                   <span class="d-none d-lg-block">Havie Farma</span>
                 </a>
               </div><!-- End Logo -->

@@ -42,7 +42,7 @@
           </li>
           <li>
             <a href="<?=BASEURL?>masterdata/mastersuplier">
-              <i class="bi bi-circle"></i><span>Data Suplier</span>
+              <i class="bi bi-circle"></i><span>Data wSuplier</span>
             </a>
           </li>
         </ul>

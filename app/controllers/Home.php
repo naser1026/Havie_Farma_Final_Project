@@ -1,5 +1,5 @@
 <?php
-session_start();
+
 class Home extends Controller
 {
 
@@ -28,11 +28,7 @@ class Home extends Controller
     public function validateLogin()
     {
         if ($user = $this->model("User")->getUser($_POST['email'], $_POST['password'])) {
-            $data['user'] = $user;
-            $this->view('templates/header', $data);
-            $this->view('templates/sidebar');
-            $this->view('home/index');
-            $this->view('templates/footer');
+            header('Location: '.BASEURL.'home/index');
         }
     }
 
@@ -45,5 +41,15 @@ class Home extends Controller
     public function register()
     {
         $this->view('home/register');
+    }
+
+    public function add() 
+    {
+        if ($this->model('User')->addUser($_POST) > 0) 
+        {
+            header('Location: '.BASEURL.'home/register');
+        }else {
+            header('Location: '.BASEURL.'home/register');
+        };
     }
 }

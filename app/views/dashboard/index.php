@@ -1,10 +1,9 @@
 <main id="main" class="main">
     <div class="pagetitle">
-        <h1>Master Data</h1>
+        <h1>Dashboard</h1>
         <nav>
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="dashboard.php">Home</a></li>
-                <li class="breadcrumb-item active">Dashboard</li>
+                <li class="breadcrumb-item"><a href="dashboard.php">Dashboard</a></li>
             </ol>
         </nav>
     </div><!-- End Page Title -->
@@ -24,8 +23,12 @@
                     <h5 class="card-title"><?=$row['name_tmp'] ?></h5>
                     <h6 class="card-title">Rp. <?=$row['selling_price_tmp'] ?></h6>
                     <p class="card-text"><?=$row['description_tmp']?></p>
-                    <a href="<?=BASEURL?>dashboard/detail/<?=$row['id_product_tmp']?>" class="btn btn-primary" data-bs-toggle="modal"
+                    
+                    <a href="<?=BASEURL?>dashboard/detail/<?=$row['id_product_tmp']?>" class="btn btn-primary float-right" data-bs-toggle="modal"
                     data-bs-target="#detail">Detail</a>
+                    
+                    <a href="<?=BASEURL?>dashboard/detail/<?=$row['id_product_tmp']?>" class="btn btn-danger float-right" data-bs-toggle="modal"
+                    data-bs-target="#detail">+</a>
                 </div>
             </div>
             <?php endforeach;?>

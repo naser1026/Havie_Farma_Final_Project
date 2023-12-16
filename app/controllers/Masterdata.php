@@ -37,9 +37,14 @@ class Masterdata extends Controller
     {
         if($this->model('Product')->addProduct($_POST, $_FILES) > 0 )
         {   
+            Flasher::setFlash('berhasil','ditambahkan', 'success');
             header('Location: '. BASEURL.'masterdata/masterproduct');
             exit;
-        }    
+        }else {
+            Flasher::setFlash('gagal','ditambahkan', 'danger');
+            header('Location: '. BASEURL.'masterdata/masterproduct');
+            exit;
+        }  
 
     }
 
@@ -47,18 +52,33 @@ class Masterdata extends Controller
     {
         if($this->model('Product')->deleteProduct($id) > 0 )
         {   
+            Flasher::setFlash('berhasil','dihapus', 'success');
+            header('Location: '. BASEURL.'masterdata/masterproduct');
+            exit;
+        }else {
+            Flasher::setFlash('gagal','dihapus', 'danger');
             header('Location: '. BASEURL.'masterdata/masterproduct');
             exit;
         } 
     }
 
-    public function edit($id)
+    public function update() 
     {
-        if($this->model('Product')->editProduct($id))
-        {
-            echo "INI EDIT";
-            die;
-        }
+        if($this->model('Product')->updateProduct($_POST, $_FILES) > 0 )
+        {   
+            Flasher::setFlash('berhasil','diubah', 'success');
+            header('Location: '. BASEURL.'masterdata/masterproduct');
+            exit;
+        }else {
+            Flasher::setFlash('gagal','diubah', 'danger');
+            header('Location: '. BASEURL.'masterdata/masterproduct');
+            exit;
+        } 
+    }
+
+    public function getEdit()
+    {
+        echo json_encode($this->model('Product')->getProductById($_POST['id']));
     }
 
     

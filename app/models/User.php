@@ -42,4 +42,15 @@ class User
         session_unset();
     }
 
+    public function addUser($post) 
+    {
+        $password = $post['password'];
+        $confirm = $post['confirm'];
+
+        if ($password != $confirm) {
+            Flasher::setFlash();
+            return 0;
+        }
+    }
+
 }
