@@ -17,36 +17,56 @@
         <ul id="components-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
           <li>
             <a href="<?=BASEURL?>masterdata/masterproduct">
-              <i class="bi bi-circle"></i><span>Data Produk</span>
-            </a>
-          </li>
-          <li>
-            <a href="<?=BASEURL?>masterdata/mastercategory">
-              <i class="bi bi-circle"></i><span>Data Kategori</span>
+              <i class="bi bi-circle"></i><span>Master Barang</span>
             </a>
           </li>
           <li>
             <a href="<?=BASEURL?>masterdata/masterunit">
-              <i class="bi bi-circle"></i><span>Data Satuan</span>
+              <i class="bi bi-circle"></i><span>Master Unit</span>
             </a>
           </li>
+
           <li>
-            <a href="<?=BASEURL?>masterdata/masterwarehouse">
-              <i class="bi bi-circle"></i><span>Data Gudang</span>
+            <a href="<?=BASEURL?>masterdata/masterfactory">
+              <i class="bi bi-circle"></i><span>Master Pabrik</span>
             </a>
           </li>
+
           <li>
-            <a href="<?=BASEURL?>masterdata/masterrack">
-              <i class="bi bi-circle"></i><span>Data Rak</span>
+            <a href="<?=BASEURL?>masterdata/mastersublier">
+              <i class="bi bi-circle"></i><span>Master Suplier</span>
             </a>
           </li>
-          <li>
-            <a href="<?=BASEURL?>masterdata/mastersuplier">
-              <i class="bi bi-circle"></i><span>Data wSuplier</span>
-            </a>
-          </li>
+        
         </ul>
-      </li><!-- End Components Nav -->
+        
+      </li>
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" data-bs-target="#components-nav-product" data-bs-toggle="collapse" href="#">
+          <i class="bi bi-menu-button-wide"></i><span>Barang</span><i class="bi bi-chevron-down ms-auto"></i>
+        </a>
+        <ul id="components-nav-product" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+          <li>
+            <a href="<?=BASEURL?>masterdata/masterproduct">
+              <i class="bi bi-circle"></i><span>Retur Barang</span>
+            </a>
+          </li>
+          <li>
+            <a href="<?=BASEURL?>masterdata/masterunit">
+              <i class="bi bi-circle"></i><span>Stok Opname</span>
+            </a>
+          </li>
+
+          <li>
+            <a href="<?=BASEURL?>masterdata/mastersublier">
+              <i class="bi bi-circle"></i><span>Penerimaan Barang</span>
+            </a>
+          </li>
+        
+        </ul>
+        
+      </li>
 
       <li class="nav-heading">Pages</li>
 

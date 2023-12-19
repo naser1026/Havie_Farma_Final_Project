@@ -4,15 +4,13 @@
         <nav>
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="dashboard.php">Home</a></li>
-                <li class="breadcrumb-item active">Data Produk</li>
+                <li class="breadcrumb-item active">Master Data</li>
             </ol>
         </nav>
     </div><!-- End Page Title -->
 
     <section class="section masterdata">
         <div class="row">
-
-
             <!-- Start Ngoding Disini -->
 
             <div class="row">
@@ -29,17 +27,16 @@
             <table id="product" class="table table-striped " border="2" style="width:100%">
                 <thead class="thead-primary">
                     <tr>
-                        <th>#</th>
-                        <th>No Lot</th>
+                        <th>Barcode</th>
                         <th>Nama Produk</th>
-                        <th>Harga</th>
-                        <th>Kategori</th>
-                        <th>Gudang</th>
-                        <th>Rak</th>
+                        <th>Pabrik</th>
                         <th>Suplier</th>
-                        <th>Stok</th>
-                        <th>Tanggal Kadaluarsa</th>
-                        <th>Gambar Produk</th>
+                        <th>Sat.Besar</th>
+                        <th>Hrg Sat.Besar</th>
+                        <th>PPN</th>
+                        <th>Sat.Kecil</th>
+                        <th>Isi</th>
+                        <th>Hrg. Sat.Kecil</th>
                         <th>Aksi</th>
                     </tr>
                 </thead>
@@ -47,73 +44,53 @@
                     <?php
 
                     $products = $data['product'];
-                    $no = 1;
+                    $ppn = 11;
                     foreach ($products as $row):
                         ?>
                         <tr>
                             <td>
-                                <?= $no++; ?>
-                            </td>
-                            <td>
-                                <?= $row['production_code_tmp']; ?>
+                                <?= $row['large_barcode_tmp']; ?>
                             </td>
                             <td>
                                 <?= $row['name_tmp']; ?>
                             </td>
                             <td>
-                                <?= $row['selling_price_tmp']; ?>
-                            </td>
-                            <td>
-                                <?= $row['name_tmc'] ?>
-                            </td>
-                            <td>
-                                <?= $row['name_tmw'] ?>
-                            </td>
-                            <td>
-                                <?= $row['name_tmr'] ?>
-
+                                <?= $row['name_tmf']; ?>
                             </td>
                             <td>
                                 <?= $row['name_tms'] ?>
-
-
                             </td>
                             <td>
-                                <?= $row['stock_tmp']; ?>
+                                <?= $row['name_tmun'] ?>
                             </td>
                             <td>
-                                <?= $row['expired_date_tmp']; ?>
+                                Rp.
+                                <?= $row['large_price_tmp'] ?>
                             </td>
-                            <td><img width=100 src="<?= BASEURL ?>img/product/<?= $row['img_tmp']; ?>" alt=""></td>
-
                             <td>
-                                <a class="btn btn-success changeModal"
-                                    href="#" data-bs-toggle="modal"
-                                    data-bs-target="#staticBackdrop" role="button" data-id="<?=$row['id_product_tmp'];?>" data-url= "<?=BASEURL;?>">Edit</a>
-                                <a class="btn btn-danger" href="<?= BASEURL ?>masterdata/delete/<?= $row['id_product_tmp'] ?>"
-                                    role="button"
+                                <?= $ppn ?>%
+                            </td>
+                            <td>
+                                <?= $row['name_tmun'] ?>
+                            </td>
+                            <td>
+                                <?= $row['fill_tmp'] ?>
+                            </td>
+                            <td>
+                                Rp.
+                                <?= $row['small_price_tmp'] ?>
+                            </td>
+                            <td>
+                                <a class="btn btn-success changeModal" href="#" data-bs-toggle="modal"
+                                    data-bs-target="#staticBackdrop" role="button" data-id="<?= $row['id_product_tmp']; ?>"
+                                    data-url="<?= BASEURL; ?>">Edit</a>
+                                <a class="btn btn-danger"
+                                    href="<?= BASEURL ?>masterdata/masterproductDelete/<?= $row['id_product_tmp'] ?>" role="button"
                                     onclick="return confirm('Hapus <?= $row['name_tmp'] ?>')">Hapus</a>
                             </td>
                         </tr>
                     <?php endforeach; ?>
                 </tbody>
-                <tfoot>
-                    <tr>
-                        <th>#</th>
-                        <th>No Lot</th>
-                        <th>Nama Produk</th>
-                        <th>Harga</th>
-                        <th>Kategori</th>
-                        <th>Gudang</th>
-                        <th>Rak</th>
-                        <th>Suplier</th>
-                        <th>Stok</th>
-                        <th>Tanggal Kadaluarsa</th>
-                        <th>Gambar Produk</th>
-                        <th>Aksi</th>
-
-                    </tr>
-                </tfoot>
             </table>
 
 
@@ -130,164 +107,196 @@
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="staticBackdropLabel">Tambah Data Produk</h1>
+                    <h1 class="modal-title fs-5" id="staticBackdropLabel">Tambah Unit</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form action="<?= BASEURL ?>masterdata/add" method="post" enctype="multipart/form-data">
-                    <input type="hidden" id = 'id' name = 'id'>
-                    <input type="hidden" id = 'previous_img' name = 'previous_img'>
-                        <div class="row mb-3">
-                            <label class="col-sm-2 col-form-label">Nama Obat</label>
-                            <div class="col-sm-10">
-                                <input type="text" name='name' id = 'name' class="form-control">
+                    <form action="<?= BASEURL ?>masterdata/masterproductAdd" method="post"
+                        enctype="multipart/form-data">
+
+                        <input type="hidden" id="id" name = "id">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="card card-body">
+                                    <div class="form-group">
+                                        <label>Nama Produk</label>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                            </div>
+                                            <input name="name" id="name" type="text" class="form-control">
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-md-5">
+                                            <div class="form-group">
+                                                <label>Pabrik</label>
+                                                <div class="input-group">
+
+                                                    <select class=form-control id='factory' name="factory" id="">
+                                                        <option selected value="">Pilih Pabrik</option>
+                                                        <?php
+                                                        foreach ($data['factory'] as $row):
+                                                            ?>
+                                                            <option value="<?= $row['id_factory_tmf'] ?>">
+                                                                <?= $row['name_tmf'] ?>
+                                                            </option>
+                                                        <?php endforeach; ?>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-5">
+                                            <div class="form-group">
+                                                <label>Supplier</label>
+                                                <div class="input-group">
+
+                                                    <select style="width:180px;" name="suplier" id="suplier"
+                                                        class="form-control" required="">
+                                                        <option selected value="" disabled="">Pilih Suplier</option>
+                                                        <?php
+                                                        foreach ($data['suplier'] as $row):
+                                                            ?>
+                                                            <option value="<?= $row['id_suplier_tms'] ?>">
+                                                                <?= $row['name_tms'] ?>
+                                                            </option>
+                                                        <?php endforeach; ?>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <div class="form-group">
+                                                <label>PPN</label>
+                                                <div class="input-group">
+
+                                                    <select name="ppn" id = "ppn" class="form-control" readonly="" required="">
+                                                        <option selected value = "11">11 %</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
                             </div>
-                        </div>
+                            <div class="col-md-6">
+                                <div class="card">
+                                    <h6 class="card-header">
+                                        <label for="">Satuan Besar</label>
+                                    </h6>
+                                    <div class="card-body">
+                                        <div class="form-group">
+                                            <label for="barcode">Barcode satuan besar</label>
+                                            <div class="input-group">
 
-                        <div class="row mb-3">
-                            <label class="col-sm-2 col-form-label">Kode Produksi</label>
-                            <div class="col-sm-10">
-                                <input type="text" name='code' id = 'code' class="form-control">
+                                                <input name="large_barcode" id="large_barcode" type="text"
+                                                    placeholder="Jika belum memiliki maka kosongkan"
+                                                    class="form-control">
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="large_unit">Satuan besar</label>
+                                            <div class="input-group">
+
+                                                <select style="width:180px;" name="large_unit" id="large_unit"
+                                                    class="form-control" required="">
+                                                    <option selected value="">Pilih Satuan</option>
+                                                    <?php
+                                                    foreach ($data['unit'] as $row):
+                                                        ?>
+                                                        <option value="<?= $row['id_unit_tmun'] ?>">
+                                                            <?= $row['name_tmun'] ?>
+                                                        </option>
+                                                    <?php endforeach; ?>
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-md-7">
+                                                <div class="form-group">
+                                                    <label>Harga satuan besar</label>
+                                                    <div class="input-group">
+                                                        <div class="input-group-prepend">
+                                                            <span class="input-group-text">Rp.</span>
+                                                        </div>
+                                                        <input name="large_price" id="large_price" type="text"
+                                                            class="form-control" id="large_price"
+                                                            onkeyup="sumPriceSmallMp()" required="">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-5">
+                                                <div class="form-group">
+                                                    <label>Total isi barang</label>
+                                                    <div class="input-group">
+                                                        <input name="fill" id="fill" type="number" class="form-control"
+                                                            id="content_mp" onkeyup="sumPriceSmallMp()" required="">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
 
-                        <div class="row mb-3">
-                            <label class="col-sm-2 col-form-label">Kategori</label>
-                            <div class="col-sm-10">
-                                <select class=form-control id ='category' name="category" id="">
-                                    <option selected value = "">Pilih Kategori</option>
-                                    <?php
-                                    foreach ($data['category'] as $row):
-                                        ?>
-                                        <option value="<?= $row['id_category_tmc'] ?>">
-                                            <?= $row['name_tmc'] ?>
-                                        </option>
-                                    <?php endforeach; ?>
-                                </select>
+                            <div class="col-md-6">
+                                <div class="card">
+                                    <h6 class="card-header">
+                                        <label for="">Satuan Kecil</label>
+                                    </h6>
+                                    <div class="card-body">
+                                        <div class="form-group">
+                                            <label for="barcode">Barcode satuan kecil</label>
+                                            <div class="input-group">
+
+                                                <input name="small_barcode" id="small_barcode" type="text"
+                                                    placeholder="Jika belum memiliki maka kosongkan"
+                                                    class="form-control">
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label>Satuan Kecil</label>
+                                            <div class="input-group">
+
+                                                <select style="width:180px;" name="small_unit" id = "small_unit" class="form-control"
+                                                    required="">
+                                                    <option value="" disabled="" selected="">Pilih Satuan</option>
+                                                    <?php
+                                                    foreach ($data['unit'] as $row):
+                                                        ?>
+                                                        <option value="<?= $row['id_unit_tmun'] ?>">
+                                                            <?= $row['name_tmun'] ?>
+                                                        </option>
+                                                    <?php endforeach; ?>
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label>Harga satuan kecil</label>
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text">Rp.</span>
+                                                </div>
+                                                <input name="small_price" type="text" class="form-control"
+                                                    id="small_price" readonly required="">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
+
                         </div>
-
-                        <div class="row mb-3">
-                            <label class="col-sm-2 col-form-label">Satuan</label>
-                            <div class="col-sm-10">
-                                <select class=form-control id = 'unit' name="unit" id="">
-                                    <option selected value = "">Pilih Satuan</option>
-                                    <?php
-                                    foreach ($data['unit'] as $row):
-                                        ?>
-                                        <option value="<?= $row['id_unit_tmun'] ?>">
-                                            <?= $row['name_tmun'] ?>
-                                        </option>
-                                    <?php endforeach; ?>
-                                </select>
-                            </div>
-                        </div>
-
-                        <div class="row mb-3">
-                            <label for="inputNumber" class="col-sm-2 col-form-label">Jumlah Obat</label>
-                            <div class="col-sm-10">
-                                <input type="number" id = 'amount' class="form-control" name='amount'>
-                            </div>
-                        </div>
-
-                        <div class="row mb-3">
-                            <label class="col-sm-2 col-form-label">Suplier</label>
-                            <div class="col-sm-10">
-                                <select class="form-control" id = 'suplier' name="suplier" >
-                                    <option selected value = "">Pilih Suplier</option>
-                                    <?php
-                                    foreach ($data['suplier'] as $row):
-                                        ?>
-                                        <option value="<?= $row['id_suplier_tms'] ?>">
-                                            <?= $row['name_tms'] ?>
-                                        </option>
-                                    <?php endforeach; ?>
-                                </select>
-                            </div>
-                        </div>
-
-                        <div class="row mb-3">
-                            <label for="inputDate" class="col-sm-2 col-form-label">Tanggal Kadaluarsa</label>
-                            <div class="col-sm-10">
-                                <input type="date" name='exp_date' id = 'exp_date' class="form-control">
-                            </div>
-                        </div>
-
-                        <div class="row mb-3">
-                            <label for="inputDate" class="col-sm-2 col-form-label">Zat Aktif</label>
-                            <div class="col-sm-10">
-                                <input type="text" id = 'active_zat' name='active_zat' class="form-control">
-                            </div>
-                        </div>
-
-                        <div class="row mb-3">
-                            <label for="inputDate" class="col-sm-2 col-form-label">Deskripsi Tambahan</label>
-                            <div class="col-sm-10">
-                                <input type="text" id = 'description' name='description' class="form-control">
-                            </div>
-                        </div>
-
-                        <div class="row mb-3">
-                            <label for="inputNumber" class="col-sm-2 col-form-label">Harga Beli</label>
-                            <div class="col-sm-10">
-                                <input type="number" id= 'purchase_price' name='purchase_price' class="form-control">
-                            </div>
-                        </div>
-
-                        <div class="row mb-3">
-                            <label for="inputNumber" class="col-sm-2 col-form-label">Harga Jual</label>
-                            <div class="col-sm-10">
-                                <input type="number" id = 'selling_price'name="selling_price" class="form-control">
-                            </div>
-                        </div>
-
-                        <div class="row mb-3">
-                            <label class="col-sm-2 col-form-label">Gambar Produk</label>
-                            <div class="col-sm-10">
-                                <input class="form-control" name='image' type="file">
-                            </div>
-                        </div>
-
-                    
-                        <div class="row mb-3 d-inline_block">
-
-                            <label class="col-sm-2 col-form-label">Gudang</label>
-                            <div class="col-sm-3">
-                                <select class="form-control" name="warehouse" id="warehouse">
-                                    <option selected value="" >Pilih Gudang</option>
-                                    <?php
-                                    foreach ($data['warehouse'] as $row):
-                                        ?>
-                                        <option value="<?= $row['id_warehouse_tmw'] ?>">
-                                            <?= $row['name_tmw'] ?>
-                                        </option>
-                                    <?php endforeach; ?>
-                                </select>
-                            </div>
-                        
-
-                       
-                            <label class="col-sm-1 col-form-label">Rak</label>
-                            <div class="col-sm-3">
-                                <select class="form-control" name="rack" id="rack">
-                                    <option selected value = "">Pilih Rak</option>
-                                    <?php
-                                    foreach ($data['rack'] as $row):
-                                        ?>
-                                        <option value="<?= $row['id_rack_tmr'] ?>">
-                                            <?= $row['name_tmr'] ?>
-                                        </option>
-                                    <?php endforeach; ?>
-                                </select>
-                           
-                        </div>
-                    </div>
-                        
 
 
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
-                            <button type="submit" name='submit' class="btn btn-primary " id="modalSubmit">Tambah</button>
+                            <button type="submit" name='submit' class="btn btn-primary "
+                                id="modalSubmit">Tambah</button>
                         </div>
                     </form>
                 </div>

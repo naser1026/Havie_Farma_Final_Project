@@ -15,8 +15,10 @@
 
 
   <!-- Template Main JS File -->
-  <script src="<?=BASEURL?>js/main.js"></script>
-  <script src="<?=BASEURL?>js/script.js"></script>
+<script src="<?=BASEURL?>js/main.js"></script>
+<script src="<?=BASEURL?>js/ajax.js"></script>
+<script src="<?=BASEURL?>js/skrip.js"></script>
+
 
 <script src = "https://code.jquery.com/jquery-3.7.0.js"></script>
     
@@ -30,6 +32,9 @@
 
     <script>
         new DataTable('#product');
+    </script>
+    <script>
+        new DataTable('#unit');
     </script>
 
 </body>
