@@ -13,7 +13,7 @@ class Product
 
     public function getAllProduct()
     {
-        $this->db->query("SELECT id_product_tmp, large_barcode_tmp, name_tmp, name_tmf, name_tms, name_tmun,large_price_tmp,small_price_tmp, fill_tmp FROM tbl_m_product JOIN tbl_m_factory ON tbl_m_product.id_factory_tmp = id_factory_tmf JOIN tbl_m_suplier ON tbl_m_product.id_suplier_tmp = id_suplier_tms JOIN tbl_m_unit ON tbl_m_product.id_large_unit_tmp = id_unit_tmun ");
+        $this->db->query("SELECT id_product_tmp, large_barcode_tmp, name_tmp, name_tmf, name_tms, name_tmun,large_price_tmp,small_price_tmp, fill_tmp, stock_tmp FROM tbl_m_product JOIN tbl_m_factory ON tbl_m_product.id_factory_tmp = id_factory_tmf JOIN tbl_m_suplier ON tbl_m_product.id_suplier_tmp = id_suplier_tms JOIN tbl_m_unit ON tbl_m_product.id_large_unit_tmp = id_unit_tmun ");
   
         return $this->db->resultSet();
    
@@ -26,8 +26,8 @@ class Product
     }
 
     public function addProduct($post) 
-    {
-          
+    {   
+     
           $query = "INSERT INTO tbl_m_product(large_barcode_tmp,small_barcode_tmp, name_tmp, id_large_unit_tmp, id_small_unit_tmp, fill_tmp, large_price_tmp,small_price_tmp, id_suplier_tmp, id_factory_tmp, date_added_tmp, added_by_tmp) 
                     VALUES (:large_barcode,
                             :small_barcode,
@@ -42,22 +42,22 @@ class Product
                             current_timestamp(),
                             :add_by)";
 
-          $this->db->query($query);
-          $this->db->bind('large_barcode', $post['large_barcode']);
-          $this->db->bind('small_barcode', $post['small_barcode']);
-          $this->db->bind('name', $post['name']);
-          $this->db->bind('large_unit', $post['large_unit']);
-          $this->db->bind('small_unit', $post['small_unit']);
-          $this->db->bind('large_price', $post['large_price']);
-          $this->db->bind('small_price', $post['small_price']);
-          $this->db->bind('suplier', $post['suplier']);
-          $this->db->bind('fill', $post['fill']);
-          $this->db->bind('factory', $post['factory']);
-          $this->db->bind('add_by', $_SESSION['name']);
-          $this->db->execute();
+            $this->db->query($query);
+            $this->db->bind('large_barcode', $post['large_barcode']);
+            $this->db->bind('small_barcode', $post['small_barcode']);
+            $this->db->bind('name', $post['name']);
+            $this->db->bind('large_unit', $post['large_unit']);
+            $this->db->bind('small_unit', $post['small_unit']);
+            $this->db->bind('large_price', $post['large_price']);
+            $this->db->bind('small_price', $post['small_price']);
+            $this->db->bind('suplier', $post['suplier']);
+            $this->db->bind('fill', $post['fill']);
+            $this->db->bind('factory', $post['factory']);
+            $this->db->bind('add_by', $_SESSION['name']);
+            $this->db->execute();
 
-          return $this->db->rowCount();
-          
+            return $this->db->rowCount();
+            
     }
 
     public function deleteProduct($id) {

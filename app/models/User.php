@@ -47,11 +47,6 @@ class User
         $password = $post['password'];
         $confirm = $post['confirm'];
 
-        if ($password != $confirm) {
-            Flasher::setFlash();
-            header('Location: '.BASEURL.'home/register');
-            die;
-        }
 
         $password = password_hash($password, PASSWORD_DEFAULT);
 

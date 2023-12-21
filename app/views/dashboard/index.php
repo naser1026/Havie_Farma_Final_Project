@@ -3,7 +3,9 @@
   <main id="main" class="main">
 
     <div class="pagetitle">
-      <h1>Dashboard</h1>
+      <div class="col-sm-6">
+        <h1><i class = "bi bi-speedometer"></i>  Dashboard</h1>
+      </div>
       <nav>
         <ol class="breadcrumb">
           <li class="breadcrumb-item"><a href="index.html">Home</a></li>

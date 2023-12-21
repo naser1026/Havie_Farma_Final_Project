@@ -21,3 +21,7 @@ function calculateSmallPrice() {
   // Menetapkan nilai pada input harga_satuan_kecil
   small_price.value = parseInt(result);
 }
+
+
+
+

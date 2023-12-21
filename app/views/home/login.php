@@ -53,8 +53,7 @@
                     <h5 class="card-title text-center pb-0 fs-4">Selamat Datang</h5>
                     <p class="text-center small">Masukan email dan password untuk login</p>
                   </div>
-                  <?php Flasher::successRegister();?>
-
+                  
                   <form class="row g-3 needs-validation" action ="<?=BASEURL?>home/validateLogin" method = 'post' novalidate>
 
                     <div class="col-12">

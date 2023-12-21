@@ -1,102 +1,120 @@
 <main id="main" class="main">
     <div class="pagetitle">
-        <h1>Master Data</h1>
+        <h1>Master Produk</h1>
         <nav>
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="dashboard.php">Home</a></li>
-                <li class="breadcrumb-item active">Master Data</li>
+                <li class="breadcrumb-item"><a href="<?=BASEURL?>home/index">Home</a></li>
+                <li class="breadcrumb-item active">Master Produk</li>
             </ol>
         </nav>
     </div><!-- End Page Title -->
 
     <section class="section masterdata">
-        <div class="row">
-            <!-- Start Ngoding Disini -->
 
-            <div class="row">
-                <div class="col-lg-6">
-                    <?php Flasher::flash(); ?>
+        <!-- Start Ngoding Disini -->
+        <div class="card">
+            <div class="card-header bg-success" style="height : 60px;">
+                <h2 class="card-title py-2" style="font-size : 30px; color : white;">
+                    <i class="bx bx-list-ul fa"></i> List Produk
+                </h2>
+            </div>
+
+            <div class="card body">
+                <div class="row">
+                    <div class="col-lg-6">
+                        <?php Util::flash(); ?>
+                    </div>
                 </div>
+                <div class='addproduct'>
+                    <button type="button" class="btn btn-primary mt-3 ms-5 addProduct" data-bs-toggle="modal"
+                        data-bs-target="#staticBackdrop">
+                        <b><i class="ri-add-fill "></i></b>Tambah Produk</button>
+                </div>
+
+                <div class="col-lg-11 ms-5 ps-2 mt-3">
+                    <div class="card-header">
+                        <h5>Daftar Produk</h5>
+                    </div>
+                    <table id="product" class="table table-striped " border="2" style="width:100%">
+                        <thead class="thead-primary">
+                            <tr>
+                                <th>#</th>
+                                <th>Nama Produk</th>
+                                <th>Pabrik</th>
+                                <th>Suplier</th>
+                                <th>Sat.Besar</th>
+                                <th>Hrg Sat.Besar</th>
+                                <th>PPN</th>
+                                <th>Sat.Kecil</th>
+                                <th>Isi</th>
+                                <th>Hrg. Sat.Kecil</th>
+                                <th>Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php
+
+                            $products = $data['product'];
+                            $ppn = 11;
+                            $no = 0;
+                            foreach ($products as $row):
+                                $no++;
+                                ?>
+                                <tr>
+                                    <td>
+                                        <?= $no ?>
+                                    </td>
+                                    <td>
+                                        <?= $row['name_tmp']; ?>
+                                    </td>
+                                    <td>
+                                        <?= $row['name_tmf']; ?>
+                                    </td>
+                                    <td>
+                                        <?= $row['name_tms'] ?>
+                                    </td>
+                                    <td>
+                                        <?= $row['name_tmun'] ?>
+                                    </td>
+                                    <td>
+                                        <?= Util::format_rupiah($row['large_price_tmp']) ?>
+                                    </td>
+                                    <td>
+                                        <?= $ppn ?>%
+                                    </td>
+                                    <td>
+                                        <?= $row['name_tmun'] ?>
+                                    </td>
+                                    <td>
+                                        <?= $row['fill_tmp'] ?>
+                                    </td>
+                                    <td>
+                                        <?= Util::format_rupiah($row['small_price_tmp']) ?>
+                                    </td>
+                                    <td>
+                                        <a class="btn btn-warning changeModal" href="#" data-bs-toggle="modal"
+                                            data-bs-target="#staticBackdrop" role="button"
+                                            data-id="<?= $row['id_product_tmp']; ?>" data-url="<?= BASEURL; ?>"><i class=" ri-edit-2-line"></i></a>
+                                        <a class="btn btn-danger"
+                                            href="<?= BASEURL ?>masterdata/masterproductDelete/<?= $row['id_product_tmp'] ?>"
+                                            role="button"
+                                            onclick="return confirm('Hapus <?= $row['name_tmp'] ?>')"><i class="bx bx-trash"></i></a>
+                                    </td>
+                                </tr>
+                            <?php endforeach; ?>
+                        </tbody>
+                    </table>
+                </div>
+
             </div>
-            <div class='addproduct'>
-                <button type="button" class="btn btn-primary addProduct" data-bs-toggle="modal"
-                    data-bs-target="#staticBackdrop">Tambah Produk</button>
-                <br><br>
-            </div>
-
-            <table id="product" class="table table-striped " border="2" style="width:100%">
-                <thead class="thead-primary">
-                    <tr>
-                        <th>Barcode</th>
-                        <th>Nama Produk</th>
-                        <th>Pabrik</th>
-                        <th>Suplier</th>
-                        <th>Sat.Besar</th>
-                        <th>Hrg Sat.Besar</th>
-                        <th>PPN</th>
-                        <th>Sat.Kecil</th>
-                        <th>Isi</th>
-                        <th>Hrg. Sat.Kecil</th>
-                        <th>Aksi</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php
-
-                    $products = $data['product'];
-                    $ppn = 11;
-                    foreach ($products as $row):
-                        ?>
-                        <tr>
-                            <td>
-                                <?= $row['large_barcode_tmp']; ?>
-                            </td>
-                            <td>
-                                <?= $row['name_tmp']; ?>
-                            </td>
-                            <td>
-                                <?= $row['name_tmf']; ?>
-                            </td>
-                            <td>
-                                <?= $row['name_tms'] ?>
-                            </td>
-                            <td>
-                                <?= $row['name_tmun'] ?>
-                            </td>
-                            <td>
-                                Rp.
-                                <?= $row['large_price_tmp'] ?>
-                            </td>
-                            <td>
-                                <?= $ppn ?>%
-                            </td>
-                            <td>
-                                <?= $row['name_tmun'] ?>
-                            </td>
-                            <td>
-                                <?= $row['fill_tmp'] ?>
-                            </td>
-                            <td>
-                                Rp.
-                                <?= $row['small_price_tmp'] ?>
-                            </td>
-                            <td>
-                                <a class="btn btn-success changeModal" href="#" data-bs-toggle="modal"
-                                    data-bs-target="#staticBackdrop" role="button" data-id="<?= $row['id_product_tmp']; ?>"
-                                    data-url="<?= BASEURL; ?>">Edit</a>
-                                <a class="btn btn-danger"
-                                    href="<?= BASEURL ?>masterdata/masterproductDelete/<?= $row['id_product_tmp'] ?>" role="button"
-                                    onclick="return confirm('Hapus <?= $row['name_tmp'] ?>')">Hapus</a>
-                            </td>
-                        </tr>
-                    <?php endforeach; ?>
-                </tbody>
-            </table>
-
-
-            <!-- End Ngoding Disini -->
 
         </div>
+
+
+
+        <!-- End Ngoding Disini -->
+
+
     </section>
 
 
@@ -114,7 +132,7 @@
                     <form action="<?= BASEURL ?>masterdata/masterproductAdd" method="post"
                         enctype="multipart/form-data">
 
-                        <input type="hidden" id="id" name = "id">
+                        <input type="hidden" id="id" name="id">
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="card card-body">
@@ -134,7 +152,7 @@
                                                 <div class="input-group">
 
                                                     <select class=form-control id='factory' name="factory" id="">
-                                                        <option selected value="">Pilih Pabrik</option>
+                                                        <option value="" disabled="" selected="">Pilih pabrik</option>
                                                         <?php
                                                         foreach ($data['factory'] as $row):
                                                             ?>
@@ -153,7 +171,8 @@
 
                                                     <select style="width:180px;" name="suplier" id="suplier"
                                                         class="form-control" required="">
-                                                        <option selected value="" disabled="">Pilih Suplier</option>
+                                                        <option value="" disabled="" selected="">Pilih Suplier</option>
+
                                                         <?php
                                                         foreach ($data['suplier'] as $row):
                                                             ?>
@@ -170,8 +189,9 @@
                                                 <label>PPN</label>
                                                 <div class="input-group">
 
-                                                    <select name="ppn" id = "ppn" class="form-control" readonly="" required="">
-                                                        <option selected value = "11">11 %</option>
+                                                    <select name="ppn" id="ppn" class="form-control" readonly=""
+                                                        required="">
+                                                        <option selected value="11">11 %</option>
                                                     </select>
                                                 </div>
                                             </div>
@@ -262,8 +282,8 @@
                                             <label>Satuan Kecil</label>
                                             <div class="input-group">
 
-                                                <select style="width:180px;" name="small_unit" id = "small_unit" class="form-control"
-                                                    required="">
+                                                <select style="width:180px;" name="small_unit" id="small_unit"
+                                                    class="form-control" required="">
                                                     <option value="" disabled="" selected="">Pilih Satuan</option>
                                                     <?php
                                                     foreach ($data['unit'] as $row):
@@ -303,3 +323,4 @@
             </div>
         </div>
     </div>
+    

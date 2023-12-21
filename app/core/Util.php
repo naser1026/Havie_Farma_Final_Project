@@ -1,6 +1,7 @@
-<?php 
+<?php
 
-class Flasher {
+class Util
+{
     public static function setFlash($massage , $type) 
     {
         $_SESSION['flash'] = [
@@ -21,4 +22,8 @@ class Flasher {
           unset($_SESSION['flash']);
         }
     }   
+
+    public static function format_rupiah($angka) {
+        return "Rp " . number_format($angka, 0, ',', '.');
+    }
 }
