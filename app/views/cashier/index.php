@@ -1,11 +1,11 @@
 
 <main id="main" class="main">
     <div class="pagetitle">
-        <h1>Master Data</h1>
+        <h1>Kasir</h1>
         <nav>
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="dashboard.php">Home</a></li>
-                <li class="breadcrumb-item active">Master Unit</li>
+                <li class="breadcrumb-item"><a href="<?=BASEURL?>/home">Home</a></li>
+                <li class="breadcrumb-item active">Kasir</li>
             </ol>
         </nav>
     </div><!-- End Page Title -->
@@ -97,6 +97,8 @@
                     </div>
 
                     <input type="hidden" name="invoice_number" value="<?=$data['invoice_number']?>">
+                    <input type="hidden" name="str_qty_list" id="strQtyList">
+                    <input type="hidden" name="str_id_list" id="strIdList">
                     <input type="hidden" name="capital_price" id="capitalPrice">
                     <div class="card-body">
                         <label for="">
@@ -113,7 +115,7 @@
                             </div>
                             <div class="col-lg-4 mt-3">
                                 <label for=""><b>Diskon (%)</b></label>
-                                <input type="number" value="0" name="general_discount" id="discount2"
+                                <input type="number" required value="0" name="general_discount" id="discount2"
                                     class="form-control">
                             </div>
                         </div>
@@ -161,6 +163,8 @@
                     $no = 1;
                     $total_price = 0;
                     $total_capital = 0;
+                    $str_qty_list = [];
+                    $str_id_list = [];
                     foreach ($data['cart'] as $row):
                         $price = $row['price_ttc'];
                         $total_product_price = $price * $row['qty_ttc'];
@@ -169,11 +173,13 @@
                         $total_price += $total_product_price;
                         $sub_capital_price = $row['qty_ttc'] * $row['small_price_tmp'];
                         $total_capital += $sub_capital_price;
+                        $str_qty_list[] = $row['qty_ttc'] * -1;
+                        $str_id_list[] = $row['id_product_ttc'];
 
                         ?>
                         <tr>
                             <td>
-                                <?= $no ?>
+                                <?= $no?>
                             </td>
                             <td>
                                 <?= $row['small_barcode_tmp'] ?>
@@ -181,8 +187,8 @@
                             <td>
                                 <?= $row['name_tmp'] ?>
                             </td>
-                            <td>Rp.
-                                <?= $row['price_ttc'] ?>
+                            <td>
+                                <?= Util::format_rupiah($row['price_ttc']) ?>
                             </td>
                             <td>
                                 <?= $row['qty_ttc'] ?>
@@ -190,14 +196,15 @@
                             <td>
                                 <?= $row['discount_ttc'] ?>%
                             </td>
-                            <td>Rp.
-                                <?= $total_product_price ?>
+                            <td>
+                                <?= Util::format_rupiah($total_product_price) ?>
                             </td>
                             <td><a href="<?=BASEURL?>cashier/deleteProductCart/<?=$row['id_ttc']?>" class="btn btn-danger"><i class="bx  bxs-trash"></i></a></td>
 
-                            <?php $no += 1
-                            ;
-                    endforeach ?>
+                            <?php $no += 1;endforeach;
+                                $str_qty_list = json_encode($str_qty_list);
+                                $str_id_list = json_encode($str_id_list);
+                            ?>
 
                     </tr>
                 </tbody>
@@ -226,17 +233,16 @@
             return bilangan.toLocaleString('id-ID', numberFormatOptions);
         }
         var selectOption = document.getElementById('produk');
-        var textInput1 = document.getElementById('stock');
-        var textInput2 = document.getElementById('price');
-        var textInput3 = document.getElementById('id');
+        var stock = document.getElementById('stock');
+        var price = document.getElementById('price');
         var subTotalPayment = document.getElementById('subTotalPayment');
         var discount = document.getElementById('discount2');
         var totalPayment = document.getElementById('totalPayment');
         var payment = document.getElementById('payment');
         var returnPayment = document.getElementById('return');
         var capitalPrice =document.getElementById('capitalPrice');
-
-
+        var strQtyList =document.getElementById('strQtyList');
+        var strIdList =document.getElementById('strIdList');
 
 
         // Mendengarkan perubahan pada elemen select
@@ -247,12 +253,14 @@
             var final_price = parseInt(array[1]);
             var final_price = Math.floor((final_price + (final_price * 0.25)) / 100) * 100;
             // Memberikan nilai ke elemen input teks
-            textInput1.value = array[0];
-            textInput2.value = "Rp. " + final_price.toString();
-            textInput3.value = array[2]
+            stock.value = array[0];
+            price.value = "Rp. " + final_price.toString();
+            id.value = array[2]
         });
 
         subTotalPayment.value = <?= $total_price; ?>
+
+
 
 
 
@@ -266,5 +274,14 @@
             returnPayment.value = payment.value - totalPayment.value;
         })
 
-        capitalPrice.value = <?= $total_capital; ?>
+        capitalPrice.value = <?= $total_capital; ?>;
+
+        strQtyList.value = <?=$str_qty_list?>;
+        strIdList.value = <?=$str_id_list?>;
+        
+
+
+
+       
+        
     </script>

@@ -19,11 +19,11 @@ class Masterdata extends Controller
     public function masterproductAdd()
     {
         if ($this->model('Product')->addProduct($_POST) > 0) {
-            Flasher::setFlash('Data produk <strong>berhasil</strong> ditambahkan', 'success');
+            Util::setFlash('Data produk <strong>berhasil</strong> ditambahkan', 'success');
             header('Location: ' . BASEURL . 'masterdata/masterproduct');
             exit;
         } else {
-            Flasher::setFlash('Data produk <strong>gagal</strong> ditambahkan', 'danger');
+            Util::setFlash('Data produk <strong>gagal</strong> ditambahkan', 'danger');
             header('Location: ' . BASEURL . 'masterdata/masterproduct');
             exit;
         }
@@ -33,11 +33,11 @@ class Masterdata extends Controller
     public function masterproductDelete($id)
     {
         if ($this->model('Product')->deleteProduct($id) > 0) {
-            Flasher::setFlash('Data produk <strong>berhasil</strong> dihapus', 'success');
+            Util::setFlash('Data produk <strong>berhasil</strong> dihapus', 'success');
             header('Location: ' . BASEURL . 'masterdata/masterproduct');
             exit;
         } else {
-            Flasher::setFlash('Data produk <strong>gagal</strong> dihapus', 'danger');
+            Util::setFlash('Data produk <strong>gagal</strong> dihapus', 'danger');
             header('Location: ' . BASEURL . 'masterdata/masterproduct');
             exit;
         }
@@ -46,11 +46,11 @@ class Masterdata extends Controller
     public function masterproductUpdate()
     {
         if ($this->model('Product')->updateProduct($_POST) > 0) {
-            Flasher::setFlash('Data produk <strong>berhasil</strong> diubah', 'success');
+            Util::setFlash('Data produk <strong>berhasil</strong> diubah', 'success');
             header('Location: ' . BASEURL . 'masterdata/masterproduct');
             exit;
         } else {
-            Flasher::setFlash('Data produk <strong>gagal</strong> diubah', 'danger');
+            Util::setFlash('Data produk <strong>gagal</strong> diubah', 'danger');
             header('Location: ' . BASEURL . 'masterdata/masterproduct');
             exit;
         }
@@ -76,11 +76,11 @@ class Masterdata extends Controller
     public function masterunitAdd()
     {
         if ($this->model('Unit')->addUnit($_POST) > 0) {
-            Flasher::setFlash('Data unit <strong>berhasil</strong> ditambahkan', 'success');
+            Util::setFlash('Data unit <strong>berhasil</strong> ditambahkan', 'success');
             header('Location: ' . BASEURL . 'masterdata/masterunit');
             exit;
         } else {
-            Flasher::setFlash('Data unit <strong>gagal</strong> ditambahkan', 'danger');
+            Util::setFlash('Data unit <strong>gagal</strong> ditambahkan', 'danger');
             header('Location: ' . BASEURL . 'masterdata/masterunit');
             exit;
         }
@@ -91,12 +91,12 @@ class Masterdata extends Controller
     {
         if ($this->model('Unit')->updateUnit($_POST) > 0) {
 
-            Flasher::setFlash('Data unit <strong>berhasil</strong> diubah', 'success');
+            Util::setFlash('Data unit <strong>berhasil</strong> diubah', 'success');
             header('Location:' . BASEURL . 'masterdata/masterunit');
             exit;
         } else {
 
-            Flasher::setFlash('Data unit <strong>gagal</strong> diubah', 'danger');
+            Util::setFlash('Data unit <strong>gagal</strong> diubah', 'danger');
             header('Location:' . BASEURL . 'masterdata/masterunit');
             exit;
         }
@@ -110,11 +110,11 @@ class Masterdata extends Controller
     public function masterunitDelete($id)
     {
         if ($this->model('Unit')->deleteUnit($id) > 0) {
-            Flasher::setFlash('Data unit <strong>berhasil</strong> dihapus', 'success');
+            Util::setFlash('Data unit <strong>berhasil</strong> dihapus', 'success');
             header('Location: ' . BASEURL . 'masterdata/masterunit');
             exit;
         } else {
-            Flasher::setFlash('Data unit <strong>gagal</strong> dihapus', 'danger');
+            Util::setFlash('Data unit <strong>gagal</strong> dihapus', 'danger');
             header('Location: ' . BASEURL . 'masterdata/masterunit');
             exit;
         }
@@ -132,11 +132,11 @@ class Masterdata extends Controller
     public function masterFactoryAdd()
     {
         if ($this->model('Factory')->addFactory($_POST) > 0) {
-            Flasher::setFlash('Data pabrik <strong>berhasil</strong> ditambahkan', 'success');
+            Util::setFlash('Data pabrik <strong>berhasil</strong> ditambahkan', 'success');
             header('Location: ' . BASEURL . 'masterdata/masterfactory');
             exit;
         } else {
-            Flasher::setFlash('Data pabrik <strong>gagal</strong> ditambahkan', 'danger');
+            Util::setFlash('Data pabrik <strong>gagal</strong> ditambahkan', 'danger');
             header('Location: ' . BASEURL . 'masterdata/masterfactory');
             exit;
         }
@@ -146,12 +146,12 @@ class Masterdata extends Controller
     {
         if ($this->model('Factory')->updateFactory($_POST) > 0) {
 
-            Flasher::setFlash('Data pabrik <strong>berhasil</strong> diubah', 'success');
+            Util::setFlash('Data pabrik <strong>berhasil</strong> diubah', 'success');
             header('Location:' . BASEURL . 'masterdata/masterfactory');
             exit;
         } else {
 
-            Flasher::setFlash('Data pabrik <strong>gagal</strong> diubah', 'danger');
+            Util::setFlash('Data pabrik <strong>gagal</strong> diubah', 'danger');
             header('Location:' . BASEURL . 'masterdata/masterfactory');
             exit;
         }
@@ -165,11 +165,11 @@ class Masterdata extends Controller
     public function masterfactoryDelete($id)
     {
         if ($this->model('Factory')->deleteFactory($id) > 0) {
-            Flasher::setFlash('Data pabrik <strong>berhasil</strong> dihapus', 'success');
+            Util::setFlash('Data pabrik <strong>berhasil</strong> dihapus', 'success');
             header('Location: ' . BASEURL . 'masterdata/masterfactory');
             exit;
         } else {
-            Flasher::setFlash('Data pabrik <strong>gagal</strong> dihapus', 'danger');
+            Util::setFlash('Data pabrik <strong>gagal</strong> dihapus', 'danger');
             header('Location: ' . BASEURL . 'masterdata/masterfactory');
             exit;
         }
@@ -187,11 +187,11 @@ class Masterdata extends Controller
     public function mastersuplierAdd()
     {
         if ($this->model('Suplier')->addSuplier($_POST) > 0) {
-            Flasher::setFlash('Data suplier <strong>berhasil</strong> ditambahkan', 'success');
+            Util::setFlash('Data suplier <strong>berhasil</strong> ditambahkan', 'success');
             header('Location: ' . BASEURL . 'masterdata/mastersuplier');
             exit;
         } else {
-            Flasher::setFlash('Data suplier <strong>gagal</strong> ditambahkan', 'danger');
+            Util::setFlash('Data suplier <strong>gagal</strong> ditambahkan', 'danger');
             header('Location: ' . BASEURL . 'masterdata/mastersuplier');
             exit;
         }
@@ -206,12 +206,12 @@ class Masterdata extends Controller
     {
         if ($this->model('Suplier')->updateSuplier($_POST) > 0) {
 
-            Flasher::setFlash('Data suplier <strong>berhasil</strong> diubah', 'success');
+            Util::setFlash('Data suplier <strong>berhasil</strong> diubah', 'success');
             header('Location:' . BASEURL . 'masterdata/mastersuplier');
             exit;
         } else {
 
-            Flasher::setFlash('Data suplier <strong>gagal</strong> diubah', 'danger');
+            Util::setFlash('Data suplier <strong>gagal</strong> diubah', 'danger');
             header('Location:' . BASEURL . 'masterdata/mastersuplier');
             exit;
         }
@@ -220,11 +220,11 @@ class Masterdata extends Controller
     public function mastersuplierDelete($id)
     {
         if ($this->model('Suplier')->deleteSuplier($id) > 0) {
-            Flasher::setFlash('Data suplier <strong>berhasil</strong> dihapus', 'success');
+            Util::setFlash('Data suplier <strong>berhasil</strong> dihapus', 'success');
             header('Location: ' . BASEURL . 'masterdata/mastersuplier');
             exit;
         } else {
-            Flasher::setFlash('Data suplier <strong>gagal</strong> dihapus', 'danger');
+            Util::setFlash('Data suplier <strong>gagal</strong> dihapus', 'danger');
             header('Location: ' . BASEURL . 'masterdata/mastersuplier');
             exit;
         }

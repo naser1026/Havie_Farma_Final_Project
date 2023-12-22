@@ -56,8 +56,18 @@ class Purchase extends Controller
 
     public function done_purchase() 
     {
-        var_dump($_POST);
-        exit;
+    
+        if ($this->model('Purchase_model')->purchase($_POST) > 0 )
+        {
+            $this->model('Product')->updateStock($_POST['list_id'], $_POST['list_qty']);
+            Util::setFlash('Transaksi produk <strong>berhasil</strong>','success');
+            header('Location: '.BASEURL.'purchase/index');
+            exit;
+        }else {
+            Util::setFlash('Transaksi produk <strong>gagal</strong>','danger');
+            header('Location: '.BASEURL.'purchase/index');
+            exit;
+        }
     }
 
 }

@@ -42,12 +42,12 @@ class Cashier extends Controller {
     }
     
     public function payment() {
-      
-
+   
         if ($this->model('Cashier_model')->addPayment($_POST) > 0) 
         {
             unset($_SESSION['random_number']);
             Util::setFlash('Pembayaran <strong>berhasil</strong>','success');
+            $this->model('Product')->updateStock($_POST['str_id_list'], $_POST['str_qty_list']);
             header('Location: '.BASEURL.'cashier/index');
         }else {
             Util::setFlash('Pembayaran <strong>gagal</strong>','danger');

@@ -4,7 +4,6 @@
 class Cashier_model
 {
 
-
     protected $db;
 
     public function __construct()
@@ -65,7 +64,7 @@ class Cashier_model
 
     public function getAllCart()
     {
-        $query = "SELECT id_ttc, name_tmp, price_ttc, small_price_tmp, small_barcode_tmp, discount_ttc, qty_ttc FROM tbl_t_cart JOIN tbl_m_product ON tbl_t_cart.id_product_ttc = id_product_tmp";
+        $query = "SELECT id_ttc, id_product_ttc, name_tmp, price_ttc, small_price_tmp, small_barcode_tmp, discount_ttc, qty_ttc FROM tbl_t_cart JOIN tbl_m_product ON tbl_t_cart.id_product_ttc = id_product_tmp";
 
         $this->db->query($query);
 
@@ -83,7 +82,7 @@ class Cashier_model
 
     public function addPayment($post) 
     {   
-        if (empty($post['total_payment'])) {
+        if (empty($post['total_payment']) or $post['discount'] < 0 or $post['discount'] > 100 or $post['total_payment'] > $post['payment']) {
             return 0;
         }
         $profit = $post['total_payment'] - $post['capital_price'];

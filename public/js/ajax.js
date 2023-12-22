@@ -50,17 +50,14 @@ $(function () {
   });
 
 
-
-
-  $(".modalUnitAdd").on("click", function () {
+  $(".unitModalAdd").on("click", function () {
     $("#staticBackdropLabel").html("Tambah Data Unit");
     $(".modal-footer button[type=submit]").html("Tambah");
     
-    $("#name").val("");
+    $("#name").val("+");
     $("#information").val("");
   });
-
-
+1
 
   $(".unitModalUpdate").on("click", function () {
     const id = $(this).data("id");
@@ -86,7 +83,7 @@ $(function () {
     });
   });
 
-  $(".factoryModalUpdate").on("click", function () {
+  $(".factoryModalUpdat").on("click", function () {
     const id = $(this).data("id");
     const baseurl = $(this).data("url");
 

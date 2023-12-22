@@ -41,11 +41,11 @@ class Home extends Controller
     {
        if ($this->model('User')->addUser($_POST) > 0)
        {
-        Flasher::setFlash('berhasil', 'success');
+        Util::setFlash('berhasil', 'success');
         header('Location: '.BASEURL.'home/login');
         exit;
     }else {
-        Flasher::setFlash('gagal', 'danger');
+        Util::setFlash('gagal', 'danger');
         header('Location: '.BASEURL.'home/login');
        };
     }

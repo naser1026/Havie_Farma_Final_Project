@@ -1,10 +1,11 @@
 <main id="main" class="main">
     <div class="pagetitle">
-        <h1>Master Data</h1>
+        <h1>Produk</h1>
         <nav>
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="dashboard.php">Home</a></li>
-                <li class="breadcrumb-item active">Master Unit</li>
+                <li class="breadcrumb-item"><a href="<?=BASEURL?>home/index">Home</a></li>
+                <li class="breadcrumb-item active">Penerimaan Produk</li>
+               
             </ol>
         </nav>
     </div><!-- End Page Title -->
@@ -12,12 +13,10 @@
     <section class="section masterdata">
         <div class="row">
             <!-- Start Ngoding Disini -->
+            <h2 class="card-title display-7 py-2 bg-success text-white rounded-3"> <i class=" bx bx-list-ul mt-2 mx-2"></i>LIst Penerimaan Barang</h2>
             <div class="card">
-                <div class="card-header text-light bg-success color-palette ">
-                        <h2 class="card-title display-7 py-2"> <i class=" bx bx-list-ul fa-2x mt-2"></i>List Penerimaan Barang</h2>
-                </div>
 
-                <div class="card">
+                
                     <div class="my-3 px-2">
                         <a class="btn btn-primary" href="<?=BASEURL?>purchase/purchase_form"> <i class="ri-add-fill"></i> Tambah Penerimaan Barang</a>
                     </div>
@@ -62,7 +61,7 @@
                                             <?= $row['payment_date_ttp'] ?>
                                         </td>
                                         <td>
-                                            <?= $row['total_payment_ttp'] ?>
+                                            <?= Util::format_rupiah($row['total_payment_ttp']) ?>
                                         </td>
                                         <td>
                                             <?= $row['status_ttp'] ?>
@@ -84,7 +83,7 @@
                     </div>
 
 
-                </div>
+                
             </div>
 
 

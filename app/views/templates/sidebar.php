@@ -2,7 +2,6 @@
 <aside id="sidebar" class="sidebar">
 
   <ul class="sidebar-nav" id="sidebar-nav">
-
     <li class="nav-item">
       <a class="nav-link " href="<?= BASEURL ?>home/index">
         <i class="bi bi-grid"></i>
@@ -44,7 +43,7 @@
 
     <li class="nav-item">
       <a class="nav-link collapsed" data-bs-target="#components-nav-product" data-bs-toggle="collapse" href="#">
-        <i class="ri-send-plane-fill"></i><span>Barang</span><i class="bi bi-chevron-down ms-auto"></i>
+        <i class="ri-send-plane-fill"></i><span>Produk</span><i class="bi bi-chevron-down ms-auto"></i>
       </a>
       <ul id="components-nav-product" class="nav-content collapse " data-bs-parent="#sidebar-nav">
         <li>

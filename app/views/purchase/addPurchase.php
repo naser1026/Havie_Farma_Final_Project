@@ -1,29 +1,33 @@
 <?php
 if (empty($data['list_product'])) {
     unset($_SESSION['invoice_number']);
+    unset($_SESSION['suplier']);
+    unset($_SESSION['invoice_date']);
+    unset($_SESSION['payment_date']);
 }
+
 ?>
 <main id="main" class="main">
     <div class="pagetitle">
         <h1>Master Data</h1>
         <nav>
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="dashboard.php">Home</a></li>
-                <li class="breadcrumb-item active">Master Unit</li>
+            <li class="breadcrumb-item"><a href="<?=BASEURL?>home/index">Home</a></li>
+            <li class="breadcrumb-item"><a href="<?=BASEURL?>purchase/index">Penerimaan Produk</a></li>
+            <li class="breadcrumb-item active">Tambah Penerimaan</li>
             </ol>
         </nav>
     </div>
     <?php Util::flash() ?>
     <!-- End Page Title -->
 
-    <section class="section masterdata">
         <div class="row">
             <!-- Start Ngoding Disini -->
+            <h2 class="card-title display-7 py-2 bg-success text-white rounded-3"> <i class=" bx bx-list-ul mt-2 mx-2"></i>Form Transaksi
+                Penerimaan Barang</h2>
             <div class="card">
-                <div class="card-header text-light bg-success color-palette ">
-                    <h2 class="card-title display-7 py-2"> <i class=" bx bx-list-ul fa-2x mt-2"></i>Form Transaksi
-                        Penerimaan Barang</h2>
-                </div>
+                
+                
 
                 <div class="row mx-2 py-3">
                     <div class="card col-8">
@@ -41,18 +45,26 @@ if (empty($data['list_product'])) {
                                     </div>
                                     <div class="col-4">
                                         <label for="">Tanggal Faktur</label>
-                                        <input type="date" class="form-control">
+                                        <input type="date" name = "invoice_date" id="invoiceDate" class="form-control" value = "<?php if (empty($_SESSION['invoice_date'])) {
+                                            echo "";
+                                        } else {
+                                            echo $_SESSION['invoice_date'];
+                                        } ?>">
                                     </div>
                                     <div class="col-4">
                                         <label for="">Tanggal Bayar</label>
-                                        <input type="Date" class="form-control">
+                                        <input type="Date" name = "payment_date" id = "paymentDate" value = "<?php if (empty($_SESSION['payment_date'])) {
+                                            echo "";
+                                        } else {
+                                            echo $_SESSION['payment_date'];
+                                        } ?>" class="form-control">
                                     </div>
                                 </div>
 
                                 <div class="col-3 mt-4">
                                     <label for="">Suplier</label>
-                                    <select class="form-control" name="" id="">
-                                        <option selected="0" disabled>Pilih suplier</option>
+                                    <select class="form-control" required name="suplier" id="suplier">
+                                        <option value = "0" disabled>Pilih suplier</option>
 
                                         <?php
                                         foreach ($data['suplier'] as $suplier):
@@ -71,7 +83,7 @@ if (empty($data['list_product'])) {
                                         <div class="col-6">
                                             <label for="">Nama Produk</label>
                                             <select class="form-control" name="product_name" id="productName">
-                                                <option selected="" disabled>Pilih Produk</option>
+                                                <option selected="" disabled>Pilih produk</option>
 
                                                 <?php
                                                 foreach ($data['product'] as $product):
@@ -118,23 +130,23 @@ if (empty($data['list_product'])) {
                             </div>
                         </form>
                     </div>
-                    
+
                     <div class="card col-3 ms-5" style="height :250px;">
-                        <form action="<?=BASEURL?>purchase/done_purchase" method = "post">
-                        <div class="card-body">
-                            <label for=""><b>Total Pembelanjaan :</b></label>
-                            <input class="form-control mt-2"
-                                style="background: blue; height: 70px; font-size : 30px; color : white;"
-                                id="totalPayment" name = "total_payment" readonly>
-                        </div>
+                        <form action="<?= BASEURL ?>purchase/done_purchase" method="post">
+                            <div class="card-body">
+                                <label for=""><b>Total Pembelanjaan :</b></label>
+                                <input class="form-control mt-2"
+                                    style="background: blue; height: 70px; font-size : 30px; color : white;"
+                                    id="totalPayment" name="total_payment" readonly>
+                            </div>
 
                             <input type="hidden" name="list_id" id="listId">
                             <input type="hidden" name="list_qty" id="listQty">
-                            
+                            <input type="hidden" name="suplier_list" id="suplierList">
 
                             <div class="card-footer">
-                                <button onclick="confirm('Yakin?')" class="form-control btn btn-success"
-                                    id="submit" type = "submit">Submit</button>
+                                <button onclick="confirm('Yakin?')" class="form-control btn btn-success" id="submit"
+                                    type="submit">Submit</button>
                             </div>
                         </form>
 
@@ -164,9 +176,11 @@ if (empty($data['list_product'])) {
                                 $total_payment = 0;
                                 $id_product_list = [];
                                 $qty_list = [];
+                               
                                 foreach ($data['list_product'] as $row):
-                                    array_push($id_product_list, $row['id_product_ttlp']);
-                                    array_push($qty_list, $row['qty_ttlp']);
+                                    $id_product_list[] = $row['id_product_ttlp'];
+                                    $qty_list[] = $row['qty_ttlp'];
+                            
                                     $no++;
                                     $sub_total_price = $row['qty_ttlp'] * $row['large_price_tmp'];
                                     $tax = $sub_total_price * 0.11;
@@ -197,10 +211,12 @@ if (empty($data['list_product'])) {
                                         <td><a href="<?= BASEURL ?>purchase/deleteFromList/<?= $row['id_list_ttlp'] ?>"
                                                 class="btn btn-danger"><i class="bx  bx-trash"></i></a></td>
 
-                                    <?php endforeach;  ?>
+                                    <?php endforeach; $id_product_list = json_encode($id_product_list);
+                                    $qty_list = json_encode($qty_list);?>
 
 
                                 </tr>
+                              
                             </tbody>
                         </table>
 
@@ -211,24 +227,34 @@ if (empty($data['list_product'])) {
             </div>
 
 
-            <!-- End Ngoding Disini -->
+
+    <!-- End Ngoding Disini -->
 
 
-            <script>
-                var product = document.getElementById('productName');
-                var largeUnit = document.getElementById('largeUnit');
-                var id = document.getElementById('id');
-                var totalPayment = document.getElementById('totalPayment');
-                
-                productName.addEventListener('change', function () {
-                    arrayProduct = productName.value.split(',');
-                    largeUnit.value = arrayProduct[0];
-                    id.value = arrayProduct[1];
-                })
-                totalPayment.value = "Rp. " + <?= $total_payment ?>;
+    <script>
+        var product = document.getElementById('productName');
+        var largeUnit = document.getElementById('largeUnit');
+        var id = document.getElementById('id');
+        var totalPayment = document.getElementById('totalPayment');
+        var listId = document.getElementById('listId');
+        var listQty = document.getElementById('listQty');
+        var invoiceDate = document.getElementById('invoiceDate');
+        var paymentDate = document.getElementById('paymentDate');
+        var suplier =document.getElementById('suplier');
 
-              
+        suplier.value = <?php if (empty($_SESSION['suplier'])) {
+                            echo "0";
+                        } else {
+                            echo $_SESSION['suplier'];
+                        } ?>
 
+        productName.addEventListener('change', function () {
+            arrayProduct = productName.value.split(',');
+            largeUnit.value = arrayProduct[0];
+            id.value = arrayProduct[1];
+        })
+        totalPayment.value = "Rp. " + <?= $total_payment ?>;
 
-
-            </script>
+        listId.value = <?=$id_product_list?>;
+        listQty.value = <?=$qty_list?>;
+    </script>

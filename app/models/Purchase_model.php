@@ -24,7 +24,6 @@ class Purchase_model
     public function addPurchaseList($post)
     {
         try {
-
             if (!empty($_SESSION['invoice_number'])) {
                 if ($post['invoice_number'] != $_SESSION['invoice_number']) {
                     return 0;
@@ -32,6 +31,28 @@ class Purchase_model
             } else {
                 $_SESSION['invoice_number'] = $post['invoice_number'];
             }
+            if (!empty($_SESSION['invoice_date'])) {
+                if ($post['invoice_date'] != $_SESSION['invoice_date']) {
+                    return 0;
+                }
+            } else {
+                $_SESSION['invoice_date'] = $post['invoice_date'];
+            }
+            if (!empty($_SESSION['payment_date'])) {
+                if ($post['payment_date'] != $_SESSION['payment_date']) {
+                    return 0;
+                }
+            } else {
+                $_SESSION['payment_date'] = $post['payment_date'];
+            }
+            if (!empty($_SESSION['suplier'])) {
+                if ($post['suplier'] != $_SESSION['suplier']) {
+                    return 0;
+                }
+            } else {
+                $_SESSION['suplier'] = $post['suplier'];
+            }
+
             $query = "INSERT INTO tbl_t_list_purchase(id_product_ttlp, qty_ttlp)
                     VALUES(:id, :qty)";
 
@@ -62,5 +83,31 @@ class Purchase_model
         
         return $this->db->rowCount();
     }
+
+    public function purchase($post) 
+    {
+        
+        $query = "INSERT INTO tbl_t_purchase(invoice_number_ttp, id_suplier_ttp, invoice_date_ttp, payment_date_ttp, total_payment_ttp, created_by_ttp, created_date_ttp, list_qty_ttp, list_id_product_ttp) 
+                    VALUES (:invoice_number,:suplier,:invoice_date, :payment_date,:total_payment,:created_by,:created_date, :list_qty, :list_id)";
+
+        $this->db->query($query);
+        $this->db->bind("invoice_number", $_SESSION['invoice_number']);
+        $this->db->bind('suplier', $_SESSION['suplier']);
+        $this->db->bind('invoice_date', $_SESSION['invoice_date']);
+        $this->db->bind('payment_date', $_SESSION['payment_date']);
+        $total_payment = filter_var($post['total_payment'], FILTER_SANITIZE_NUMBER_INT);
+        $this->db->bind('total_payment', $total_payment);
+        $this->db->bind('created_by', $_SESSION['name']);
+        $created_date = date("Y-m-d H:i:s");
+        $this->db->bind("created_date", $created_date);
+        $this->db->bind('list_qty', $post['list_qty']);
+        $this->db->bind('list_id', $post['list_id']);
+
+
+        $this->db->execute();
+        return $this->db->rowCount();
+
+    }
+
 
 }

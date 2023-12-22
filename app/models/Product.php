@@ -108,7 +108,33 @@ class Product
 
       return $this->db->rowCount();
     }
-   
 
+    public function updateStock($list_id, $list_qty) 
+    {
+        $list_id = explode(',', $list_id);
+        $list_qty = explode(',', $list_qty);
+        $counter = count($list_id);
+        for ($i = 0; $i < $counter; $i++){
+            $id = $list_id[$i];
+            $qty = $list_qty[$i];
+            $query = "UPDATE tbl_m_product SET stock_tmp = :new_stock WHERE id_product_tmp = :id ";
+            $product = $this->getProductById($id);
+            $stock = $product["stock_tmp"];
+            if ($qty > 0) {
+                $fill = $product["fill_tmp"];
+                $stock = $stock + ($qty * $fill);
+            }else {
+                $stock = $stock + $qty;
+            }
+            $this->db->query($query);
+            $this->db->bind("id", $id);
+            $this->db->bind("new_stock", $stock);
+            $this->db->execute();   
+        }
+        return $this->db->rowCount();
+    
+
+        
+    }
   
 }
