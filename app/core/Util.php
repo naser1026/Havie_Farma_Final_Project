@@ -10,7 +10,6 @@ class Util
         ];
 
     }
-
     public static function flash()
     {                    
         if (isset($_SESSION['flash']))

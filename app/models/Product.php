@@ -13,7 +13,7 @@ class Product
 
     public function getAllProduct()
     {
-        $this->db->query("SELECT id_product_tmp, large_barcode_tmp, name_tmp, name_tmf, name_tms, name_tmun,large_price_tmp,small_price_tmp, fill_tmp, stock_tmp FROM tbl_m_product JOIN tbl_m_factory ON tbl_m_product.id_factory_tmp = id_factory_tmf JOIN tbl_m_suplier ON tbl_m_product.id_suplier_tmp = id_suplier_tms JOIN tbl_m_unit ON tbl_m_product.id_large_unit_tmp = id_unit_tmun ");
+        $this->db->query("SELECT id_product_tmp,small_barcode_tmp, large_barcode_tmp, name_tmp, name_tmf, name_tms, name_tmun,large_price_tmp,small_price_tmp, fill_tmp, stock_tmp FROM tbl_m_product JOIN tbl_m_factory ON tbl_m_product.id_factory_tmp = id_factory_tmf JOIN tbl_m_suplier ON tbl_m_product.id_suplier_tmp = id_suplier_tms JOIN tbl_m_unit ON tbl_m_product.id_small_unit_tmp = id_unit_tmun ");
   
         return $this->db->resultSet();
    
@@ -132,9 +132,28 @@ class Product
             $this->db->execute();   
         }
         return $this->db->rowCount();
-    
-
         
     }
-  
+
+    public function updateStockSingle($id,$qty,$unit) {
+        
+        
+        $product = $this->getProductById($id);
+        $stock = $product["stock_tmp"];
+        $fill = 1;
+        if ($unit == "0") {
+            $fill = $product['fill_tmp'];
+        }
+        $new_stock = $stock + $qty * $fill;
+        
+        $query = "UPDATE tbl_m_product SET stock_tmp = :new_stock WHERE id_product_tmp = :id ";
+        $this->db->query($query);
+        
+        $this->db->bind('id', $id);
+        $this->db->bind('new_stock', $new_stock);
+        
+
+        $this->db->execute();
+        return $this->db->rowCount();
+    }
 }

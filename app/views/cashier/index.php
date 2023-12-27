@@ -251,7 +251,7 @@
             var selectedValue = selectOption.value;
             array = selectedValue.split(",");
             var final_price = parseInt(array[1]);
-            var final_price = Math.floor((final_price + (final_price * 0.25)) / 100) * 100;
+            var final_price = Math.floor(final_price + (final_price * 0.25));
             // Memberikan nilai ke elemen input teks
             stock.value = array[0];
             price.value = "Rp. " + final_price.toString();

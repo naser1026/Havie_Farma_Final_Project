@@ -52,7 +52,7 @@
           </a>
         </li>
         <li>
-          <a href="<?= BASEURL ?>masterdata/masterunit">
+          <a href="<?= BASEURL ?>opname/index">
             <i class="bi bi-circle"></i><span>Stok Opname</span>
           </a>
         </li>
@@ -84,7 +84,7 @@
     </li><!-- End Profile Page Nav -->
 
     <li class="nav-item">
-      <a class="nav-link collapsed" href="../masteruser/masteruser">
+      <a class="nav-link collapsed" href="<?=BASEURL?>user">
         <i class="bi bi-people"></i>
         <span>Master User</span>
       </a>

@@ -37,7 +37,7 @@
                             <h5>Daftar Unit</h5>
                         </div>
 
-                        <table id="unit" class="table table-striped " border="2" style="width:100%">
+                        <table class="table table-striped " border="2" style="width:100%">
                             <thead class="thead-primary">
                                 <tr>
                                     <th>No</th>
@@ -121,7 +121,7 @@
                                         <div class="input-group">
                                             <div class="input-group-prepend">
                                             </div>
-                                            <input name="information" id="informaation" type="text" class="form-control">
+                                            <input name="information" id="information" type="text" class="form-control">
                                         </div>
                                     </div>
 

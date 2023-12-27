@@ -83,11 +83,9 @@ $(function () {
     });
   });
 
-  $(".factoryModalUpdat").on("click", function () {
+  $(".factoryModalUpdate").on("click", function () {
     const id = $(this).data("id");
     const baseurl = $(this).data("url");
-
-    
 
     $("#staticBackdropLabel").html("Ubah Data Pabrik");
     $(".modal-footer button[type=submit]").html("Ubah Data");
