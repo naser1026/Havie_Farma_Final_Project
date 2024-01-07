@@ -1,4 +1,6 @@
 $(function () {
+
+ 
   $(".addProduct").on("click", function () {
     $("#staticBackdropLabel").html("Tambah Data Produk");
     $(".modal-footer button[type=submit]").html("Tambah");

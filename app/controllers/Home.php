@@ -23,6 +23,12 @@ class Home extends Controller
     {
         if ($user = $this->model("User")->getUser($_POST['email'], $_POST['password'])) {
             header('Location: '.BASEURL.'home/index');
+            exit;
+        }else {
+            Util::setFlash('Login gagal '.$_SESSION['login_error'], 'danger');
+            unset($_SESSION['login_error']);
+            header('Location: '.BASEURL.'home/login');
+            exit;   
         }
     }
 
@@ -30,23 +36,5 @@ class Home extends Controller
     {
         $this->model('User')->userLogout();
         $this->view('home/login');
-    }
-
-    public function register()
-    {
-        $this->view('home/register');
-    }
-
-    public function add() 
-    {
-       if ($this->model('User')->addUser($_POST) > 0)
-       {
-        Util::setFlash('berhasil', 'success');
-        header('Location: '.BASEURL.'home/login');
-        exit;
-    }else {
-        Util::setFlash('gagal', 'danger');
-        header('Location: '.BASEURL.'home/login');
-       };
     }
 }

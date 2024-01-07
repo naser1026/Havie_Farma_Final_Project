@@ -156,4 +156,24 @@ class Product
         $this->db->execute();
         return $this->db->rowCount();
     }
+    public function getProductDetail($list_product_id, $list_qty)
+    { 
+        $list_detail = [];
+        $list_product_id = explode(',', $list_product_id);
+        $list_qty = explode(',', $list_qty);
+        for ($i = 0; $i < count($list_product_id); $i++) :
+            $product = $this->getProductById($list_product_id[$i]);
+           
+            $list_detail[] = [
+                'name' => $product['name_tmp'],
+                'price' => $product['large_price_tmp'],
+                'barcode' => $product['large_barcode_tmp'],
+                'qty' => $list_qty[$i],
+                'id' => $product['id_product_tmp']
+            ];
+           
+        endfor;
+        return $list_detail;
+        
+    }
 }

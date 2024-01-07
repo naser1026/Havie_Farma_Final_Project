@@ -6,7 +6,7 @@ $count = count($data['product']);
     <div class="row mt-2">
         <div class="col-lg-8">
             <div class="card">
-                <div class="card-header">
+                <div class="card-header bg-success text-light">
                     Status
                 </div>
                 <div class="card-body">
@@ -128,7 +128,7 @@ $count = count($data['product']);
             <input type="hidden" name="persentase" id = "persentase">
             <input type="hidden" name="uang_selisih" id = "uangSelisih">
                 <div class="card">
-                    <div class="card-header">
+                    <div class="card-header bg-success text-light">
                         Keterangan
                     </div>
 
@@ -149,7 +149,7 @@ $count = count($data['product']);
     </div>
 
     <div class="card">
-        <div class="card-header">
+        <div class="card-header bg-success text-light">
             <span class="card-title">List Stok</span>
         </div>
 
@@ -199,11 +199,11 @@ $count = count($data['product']);
                             </td>
 
                             <td width=8%><input class="form-control" type="number" name="" id="qtyOpname<?= $no ?>"
-                                    oninput="hitungSelisih('qtyOpname<?= $no ?>','stock<?= $no ?>','selisih<?= $no ?>', 'badge<?= $no ?>', 'stokIsi','stokNoIsi' ,'<?= $no ?>')">
+                                    oninput="hitungSelisih('qtyOpname<?= $no ?>','stock<?= $no ?>','selisih<?= $no ?>', 'badge<?= $no ?>' ,'<?= $no ?>')">
                             </td>
                             <td width=8%><input class="form-control" type="number" name="" id="selisih<?= $no ?>" readonly>
                             </td>
-                            <td width=10%><span class="badge rounded-pill badge-status col-lg-7 mt-2"
+                            <td width=15%><span class="badge rounded-pill badge-status col-lg-7 mt-2"
                                     style="background : grey;" id="badge<?= $no ?>">-</span>
                             </td>
                             
@@ -235,34 +235,20 @@ $count = count($data['product']);
     }
 
 
-    function hitungSelisih(idQtyOpname, idStock, idSelisih, idBadge, stokIsi, stokNoIsi, no) {
+    function hitungSelisih(idQtyOpname, idStock, idSelisih, idBadge, no) {
         
         var qtyOpname = parseFloat(document.getElementById(idQtyOpname).value) || 0;
         var stock = parseFloat(document.getElementById(idStock).value) || 0;
+        var selisih =document.getElementById(idSelisih)
         var badge = document.getElementById(idBadge);
-        var stokIsi = document.getElementById(stokIsi);
-        var stokNoIsi = document.getElementById(stokNoIsi);
         var sesuai_input = document.getElementById('sesuai');
         var kurang_input = document.getElementById('kurang');
         var lebih_input = document.getElementById('lebih');
         var persentase_input =document.getElementById('persentase');
         var uangSelisih = document.getElementById('uangSelisih');
-
-
-        // Hitung selisih
-
-        if (!arrayno.includes(no)) {
-            arrayno.push(no)
-            jumlahTerisi += 1;
-            stokIsi.innerHTML = jumlahTerisi;
-        }
-        var selisih = Math.abs(qtyOpname - stock);
-
-        document.getElementById(idSelisih).value = selisih;
-
-        stokNoIsi.innerHTML = <?= count($data['product']) ?> - stokIsi.innerHTML;
-
-
+        
+        selisih.value = Math.abs(qtyOpname - stock);        
+        
         if (qtyOpname > stock) {
             badge.style.backgroundColor = "orange";
             badge.style.color = "black";
@@ -271,13 +257,19 @@ $count = count($data['product']);
             badge.style.backgroundColor = "green";
             badge.style.color = "white";
             badge.innerHTML = "Sesuai";
+        }else if(qtyOpname == ""| qtyOpname < 0) {
+            badge.style.backgroundColor = "grey";
+            selisih.value = "";
+            badge.style.color = "white";
+            badge.innerHTML = "-";
+            
         } else {
             badge.style.backgroundColor = "red";
             badge.style.color = "white";
             badge.innerHTML = "Kurang";
         }
-
-
+        
+        
         var buffersesuai = 0;
         var bufferUangSesuai = 0;
         var bufferUangLebih = 0;
@@ -287,15 +279,19 @@ $count = count($data['product']);
         var bufferUangSelisih = 0;
         var totalStock = 0;
         var totalSelisih = 0;
+        var totalIsi  = 0;
         for (var i = 1; i <= <?= $count ?>; i++) {
             str_badge = 'badge' + i.toString()
             str_hargaJual = 'hargaJual' + i.toString()
             str_selisih = 'selisih' + i.toString()
             str_stock = 'stock' + i.toString()
+            
             var badges = document.getElementById(str_badge);
             var hargaJual = document.getElementById(str_hargaJual);
             var selisih = document.getElementById(str_selisih);
             var stock = document.getElementById(str_stock);
+            var stokIsi = document.getElementById('stokIsi');
+            var stokNoIsi = document.getElementById('stokNoIsi');
             var totalDaftarStokSesuai = document.getElementById('totalDaftarStokSesuai')
             var totalDaftarStokLebih = document.getElementById('totalDaftarStokLebih')
             var totalDaftarStokKurang = document.getElementById('totalDaftarStokKurang')
@@ -307,20 +303,28 @@ $count = count($data['product']);
             var container1 = document.getElementById('container1')
             var container2 = document.getElementById('container2')
 
+
+
             switch (badges.innerHTML) {
                 case 'Sesuai': buffersesuai += 1;
                     harga = Math.floor(hargaJual.value) * stock.value;
                     bufferUangSesuai += harga
+                    totalIsi +=1
                     break;
                 case 'Kurang': bufferkurang += 1;
                     harga = Math.floor(hargaJual.value) * selisih.value;
                     bufferUangKurang += harga
+                    totalIsi +=1
                     break;
                 case 'Kelebihan': bufferlebih += 1;
                     harga = Math.floor(hargaJual.value) * selisih.value;
                     bufferUangLebih += harga
+                    totalIsi +=1
                     break;
             }
+
+            stokIsi.innerHTML =totalIsi;
+            stokNoIsi.innerHTML = <?=$count?> -totalIsi;
 
             bufferUangSelisih = bufferUangLebih - bufferUangKurang;
             if (bufferUangSelisih > 0) {
@@ -338,8 +342,9 @@ $count = count($data['product']);
 
             }
             totalStock += parseInt(stock.value)
-            if (selisih.value == "") selisih.value = 0;
-            totalSelisih += parseInt(selisih.value)
+            bufferSelisih =selisih.value;
+            if (selisih.value == "") bufferSelisih = 0;
+            totalSelisih += parseInt(bufferSelisih)
 
             persentase = totalSelisih / totalStock
             persentase = persentase.toLocaleString('en-US', { style: 'percent', minimumFractionDigits: 2 });

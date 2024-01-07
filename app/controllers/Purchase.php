@@ -12,11 +12,19 @@ class Purchase extends Controller
         $this->view('purchase/index', $data);
         $this->view('templates/footer');
     }
-
-    public function detail()
+    
+    public function detail($id)
     {
-        echo "detail";
-        exit;
+        $data['title'] = "Apotek Havie | Penerimaan Produk";
+        $data['purchase'] = $this->model('Purchase_model')->getPurchaseById($id);
+        $data['list_product'] = $this->model('Product')->getProductDetail($data['purchase']['list_id_product_ttp'], $data['purchase']['list_qty_ttp']); 
+        $data['list_product_retur'] = [];
+
+        $this->view('templates/header', $data);
+        $this->view('templates/sidebar');
+        $this->view('purchase/detail', $data);
+        $this->view('templates/footer');
+
     }
 
     public function purchase_form()

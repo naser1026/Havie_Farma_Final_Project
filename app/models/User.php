@@ -29,11 +29,14 @@ class User
                 return $user;
 
             } else {
-                echo "Email atau password salah";
+                $_SESSION['login_error'] = "password salah";
+                return false;
             }
 
         } else {
-            echo "Email tidak terdaftar";
+            $_SESSION['login_error'] = "email tidak terdaftar";
+            return false;
+            
         }
 
     }

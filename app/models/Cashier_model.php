@@ -31,7 +31,7 @@ class Cashier_model
             $query = "INSERT INTO tbl_t_cart(id_product_ttc, price_ttc, qty_ttc, discount_ttc) VALUES(:id, :price, :qty, :discount)";
             $this->db->query($query);
             $this->db->bind("id", $post["id"]);
-            $price = substr($post['price'],3);
+            $price = filter_var($post['price'], FILTER_SANITIZE_NUMBER_INT);
             $this->db->bind("price", $price);
             $this->db->bind("qty", $post["qty"]);
             $this->db->bind("discount", $post["discount"]);
@@ -81,7 +81,7 @@ class Cashier_model
     }
 
     public function addPayment($post) 
-    {   
+    {   $post['total_payment'] = filter_var($post['total_payment'], FILTER_SANITIZE_NUMBER_INT);
         if (empty($post['total_payment']) or $post['discount'] < 0 or $post['discount'] > 100 or $post['total_payment'] > $post['payment']) {
             return 0;
         }
@@ -90,7 +90,7 @@ class Cashier_model
 
         $this->db->query($query);
         $this->db->bind("invoice_number", $post["invoice_number"]);
-        $this->db->bind("gross_income", $post["total_payment"]);
+        $this->db->bind("gross_income", filter_var($post["total_payment"],FILTER_SANITIZE_NUMBER_INT));
         $this->db->bind('cashier_name', $_SESSION['name']);
 
         $this->db->execute();

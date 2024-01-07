@@ -56,6 +56,10 @@
                   
                   <form class="row g-3 needs-validation" action ="<?=BASEURL?>home/validateLogin" method = 'post' novalidate>
 
+                  <div class="col-lg-12">
+                    <?php Util::flash()?>
+                  </div>
+
                     <div class="col-12">
                       <label for="userEmail" class="form-label">Email</label>
                       <div class="input-group has-validation">
@@ -75,9 +79,6 @@
                     </div>
                     <div class="col-12">
                       <button class="btn btn-primary w-100" type="submit" name = 'submit' id = "submit">Login</button>
-                    </div>
-                    <div class="col-12">
-                      <p class="small mb-0">Tidak punya akun? <a href="<?=BASEURL?>home/register">Klik disini</a></p>
                     </div>
                   </form>
 

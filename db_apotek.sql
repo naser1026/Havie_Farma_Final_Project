@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Dec 22, 2023 at 01:34 PM
+-- Generation Time: Jan 07, 2024 at 11:49 AM
 -- Server version: 10.4.24-MariaDB
 -- PHP Version: 8.1.6
 
@@ -118,6 +118,31 @@ INSERT INTO `tbl_m_factory` (`id_factory_tmf`, `name_tmf`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `tbl_m_opname`
+--
+
+CREATE TABLE `tbl_m_opname` (
+  `id_opname_tmo` int(11) NOT NULL,
+  `description_tmo` varchar(100) NOT NULL,
+  `qty_ok_tmo` int(11) NOT NULL,
+  `qty_up_tmo` int(11) NOT NULL,
+  `qty_down_tmo` int(11) NOT NULL,
+  `created_by_tmo` varchar(50) NOT NULL,
+  `created_date_tmo` timestamp NOT NULL DEFAULT current_timestamp(),
+  `percentase_tmo` varchar(10) NOT NULL,
+  `total_difference_price_tmo` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `tbl_m_opname`
+--
+
+INSERT INTO `tbl_m_opname` (`id_opname_tmo`, `description_tmo`, `qty_ok_tmo`, `qty_up_tmo`, `qty_down_tmo`, `created_by_tmo`, `created_date_tmo`, `percentase_tmo`, `total_difference_price_tmo`) VALUES
+(5, 'SO 30/12/2023', 7, 0, 0, 'admin', '2023-12-30 01:22:20', '0.00%', 0);
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `tbl_m_product`
 --
 
@@ -145,12 +170,12 @@ CREATE TABLE `tbl_m_product` (
 --
 
 INSERT INTO `tbl_m_product` (`id_product_tmp`, `large_barcode_tmp`, `small_barcode_tmp`, `name_tmp`, `id_large_unit_tmp`, `id_small_unit_tmp`, `fill_tmp`, `large_price_tmp`, `small_price_tmp`, `id_suplier_tmp`, `id_factory_tmp`, `date_added_tmp`, `added_by_tmp`, `update_by_tmp`, `update_date_tmp`, `stock_tmp`) VALUES
-(32, '', '', 'ABOCATH 18', 31, 31, 1, 15000, 16650, 0, 0, '2023-12-21 01:27:32', 'admin', 'admin', '2023-12-21 01:34:16', 1),
-(33, '89919906181646', '89919906181646', 'ABOCATH 20	', 31, 31, 1, 15000, 16650, 0, 0, '2023-12-21 01:31:34', 'admin', NULL, NULL, 1),
-(34, '', '', 'ACRAN 150MG TAB', 32, 35, 30, 144000, 5328, 5, 1, '2023-12-21 01:32:50', 'admin', 'admin', '2023-12-21 01:33:38', 61),
+(32, '', '', 'ABOCATH 18', 31, 31, 1, 15000, 16650, 0, 0, '2023-12-21 01:27:32', 'admin', 'admin', '2023-12-21 01:34:16', 6),
+(33, '89919906181646', '89919906181646', 'ABOCATH 20	', 31, 31, 1, 15000, 16650, 0, 0, '2023-12-21 01:31:34', 'admin', NULL, NULL, 20),
+(34, '', '', 'ACRAN 150MG TAB', 32, 35, 30, 144000, 5328, 5, 1, '2023-12-21 01:32:50', 'admin', 'admin', '2023-12-21 01:33:38', 20),
 (35, '', '', 'ACTIVED KUNING', 36, 25, 1, 47523, 52750, 0, 0, '2023-12-21 01:35:27', 'admin', 'admin', '2023-12-21 01:36:34', 1),
 (36, '', '', 'ACTIVED MERAH', 36, 25, 1, 54535, 60533, 0, 0, '2023-12-21 01:37:33', 'admin', NULL, NULL, 1),
-(37, '', '', 'ACYCLOVIR 200MG TAB', 32, 35, 100, 59500, 660, 0, 21, '2023-12-21 01:38:40', 'admin', NULL, NULL, 100),
+(37, '', '', 'ACYCLOVIR 200MG TAB', 32, 35, 100, 59500, 660, 0, 21, '2023-12-21 01:38:40', 'admin', NULL, NULL, 2300),
 (38, '', '', 'ACYCLOVIR 400 MG TAB', 32, 35, 100, 70000, 777, 0, 0, '2023-12-21 01:39:30', 'admin', NULL, NULL, 100);
 
 --
@@ -191,6 +216,29 @@ INSERT INTO tbl_h_product(
 END
 $$
 DELIMITER ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tbl_m_report`
+--
+
+CREATE TABLE `tbl_m_report` (
+  `id_report_tmre` int(11) NOT NULL,
+  `report_date_tmre` date DEFAULT NULL,
+  `income_tmre` int(15) DEFAULT NULL,
+  `qty_tmre` int(11) DEFAULT NULL,
+  `profit_tmre` int(11) DEFAULT NULL,
+  `retur_amount_tmre` int(11) DEFAULT NULL,
+  `retur_price_tmre` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `tbl_m_report`
+--
+
+INSERT INTO `tbl_m_report` (`id_report_tmre`, `report_date_tmre`, `income_tmre`, `qty_tmre`, `profit_tmre`, `retur_amount_tmre`, `retur_price_tmre`) VALUES
+(2, '2024-01-07', 40000, 2, 2000, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -292,8 +340,7 @@ CREATE TABLE `tbl_m_user` (
   `email_tmu` varchar(100) NOT NULL,
   `password_tmu` varchar(500) NOT NULL,
   `role_tmu` enum('ADMIN','OWNER','CASHIRE') NOT NULL,
-  `status_deactived_tmu` tinyint(4) NOT NULL DEFAULT 0,
-  `status_deleted_tmu` tinyint(4) NOT NULL DEFAULT 0,
+  `status_tmu` enum('ACTIVE','NONACTIVE','DELETED''') NOT NULL DEFAULT 'ACTIVE',
   `created_date_tmu` timestamp NOT NULL DEFAULT current_timestamp(),
   `profile_picture_tmu` varchar(500) DEFAULT 'default.png',
   `update_by_tmu` varchar(50) DEFAULT NULL,
@@ -304,8 +351,8 @@ CREATE TABLE `tbl_m_user` (
 -- Dumping data for table `tbl_m_user`
 --
 
-INSERT INTO `tbl_m_user` (`id_tmu`, `name_tmu`, `phone_number_tmu`, `email_tmu`, `password_tmu`, `role_tmu`, `status_deactived_tmu`, `status_deleted_tmu`, `created_date_tmu`, `profile_picture_tmu`, `update_by_tmu`, `update_date_tmu`) VALUES
-(17, 'admin', '083377199913', 'admin@mail.com', '$2y$10$07kI5UGtdo6fsSPzUkbarOsK1pkO6IuCfhkAwb2o.v7h2Fxus64Xu', 'ADMIN', 0, 0, '2023-12-19 00:05:04', 'default.png', NULL, NULL);
+INSERT INTO `tbl_m_user` (`id_tmu`, `name_tmu`, `phone_number_tmu`, `email_tmu`, `password_tmu`, `role_tmu`, `status_tmu`, `created_date_tmu`, `profile_picture_tmu`, `update_by_tmu`, `update_date_tmu`) VALUES
+(17, 'admin', '083377199913', 'admin@mail.com', '$2y$10$07kI5UGtdo6fsSPzUkbarOsK1pkO6IuCfhkAwb2o.v7h2Fxus64Xu', 'ADMIN', 'ACTIVE', '2023-12-19 00:05:04', 'default.png', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -334,7 +381,7 @@ $$
 DELIMITER ;
 DELIMITER $$
 CREATE TRIGGER `add_to_cart_update` AFTER UPDATE ON `tbl_t_cart` FOR EACH ROW BEGIN
-	UPDATE tbl_m_product SET stock_tmp = stock_tmp - NEW.qty_ttc WHERE id_product_tmp = OLD.id_product_ttc;
+	UPDATE tbl_m_product SET stock_tmp = stock_tmp - NEW.add_qty_ttc WHERE id_product_tmp = OLD.id_product_ttc;
     
 END
 $$
@@ -384,7 +431,10 @@ CREATE TABLE `tbl_t_purchase` (
 --
 
 INSERT INTO `tbl_t_purchase` (`id_purchase_ttp`, `invoice_number_ttp`, `id_suplier_ttp`, `list_id_product_ttp`, `list_qty_ttp`, `invoice_date_ttp`, `payment_date_ttp`, `total_payment_ttp`, `status_ttp`, `created_by_ttp`, `created_date_ttp`) VALUES
-(28, 'FAK22133131', 4, '32,33,34,34,35,36,37,38', '1,1,1,1,1,1,1,1', '2023-12-29', '2023-12-30', 61000938, 'Penerimaan', 'admin', '2023-12-22');
+(31, 'INV77228883', 6, '33', '10', '2024-01-01', '2024-01-11', 166500, 'Penerimaan', 'admin', '2023-12-30'),
+(32, 'INV77564429', 3, '34,32', '1,2', '2024-01-06', '2024-02-15', 193140, 'Penerimaan', 'admin', '2023-12-30'),
+(33, 'INV77564422', 8, '32,33,37', '2,10,20', '2024-01-01', '2024-01-17', 1520700, 'Penerimaan', 'admin', '2023-12-30'),
+(34, 'FAK22133188', 5, '33,37', '10,2', '2024-01-17', '2024-01-26', 298590, 'Penerimaan', 'admin', '2024-01-05');
 
 --
 -- Triggers `tbl_t_purchase`
@@ -397,6 +447,21 @@ DELETE FROM tbl_t_list_purchase;
 END
 $$
 DELIMITER ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tbl_t_retur`
+--
+
+CREATE TABLE `tbl_t_retur` (
+  `id_retur_ttr` int(11) NOT NULL,
+  `invoice_number_ttr` varchar(100) NOT NULL,
+  `list_id_product_ttr` varchar(100) NOT NULL,
+  `list_qty_ttr` varchar(100) NOT NULL,
+  `creater_date_ttr` timestamp NOT NULL DEFAULT current_timestamp(),
+  `retur_price_ttr` int(20) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -418,42 +483,42 @@ CREATE TABLE `tbl_t_sales` (
 --
 
 INSERT INTO `tbl_t_sales` (`id_sales_tts`, `invoice_number_tts`, `transaction_date_tts`, `gross_income_tts`, `profit_tts`, `cashier_name_tts`) VALUES
-(3, '36576813864611', '2023-12-20 14:59:52', 6900, 6900, 'admin'),
-(4, '36576813864611', '2023-12-20 15:01:48', 11000, 2120, 'admin'),
-(5, '36576813864611', '2023-12-20 15:07:40', 11000, 2120, 'admin'),
-(6, '32758567484763', '2023-12-20 15:11:11', 4100, 770, 'admin'),
-(7, '51083498418934', '2023-12-20 15:13:09', 4100, 770, 'admin'),
-(8, '52008539917786', '2023-12-20 15:13:50', 2340, 120, 'admin'),
-(9, '77538477910983', '2023-12-20 15:14:17', 10400, 1520, 'admin'),
-(10, '82664951438060', '2023-12-20 15:35:07', 4100, 770, 'admin'),
-(11, '75634655515427', '2023-12-21 00:29:08', 6640, -20, 'admin'),
-(12, '17443630474792', '2023-12-21 00:30:14', 6030, 480, 'admin'),
-(13, '86158381349995', '2023-12-21 10:59:26', 13200, 2544, 'admin'),
-(14, '91031615472156', '2023-12-21 13:28:13', 18720, 2070, 'admin'),
-(15, '91031615472156', '2023-12-21 13:29:23', 18720, 2070, 'admin'),
-(16, '28676798903955', '2023-12-21 13:30:03', 199080, 21924, 'admin'),
-(17, '28676798903955', '2023-12-21 13:30:47', 199080, 21924, 'admin'),
-(18, '28676798903955', '2023-12-21 13:30:59', 199080, 21924, 'admin'),
-(19, '28676798903955', '2023-12-21 13:31:18', 199080, 21924, 'admin'),
-(20, '28676798903955', '2023-12-21 13:32:05', 199080, 21924, 'admin'),
-(21, '28676798903955', '2023-12-21 13:32:17', 199080, 21924, 'admin'),
-(22, '28676798903955', '2023-12-21 13:32:41', 199080, 21924, 'admin'),
-(23, '28676798903955', '2023-12-21 13:32:59', 199080, 21924, 'admin'),
-(24, '28676798903955', '2023-12-21 13:33:37', 199080, 21924, 'admin'),
-(25, '39174195938839', '2023-12-21 13:33:57', 37440, 4140, 'admin'),
-(26, '37193591794844', '2023-12-21 13:34:51', 59400, 6120, 'admin'),
-(27, '24634145670727', '2023-12-21 13:35:44', 29700, 3060, 'admin'),
 (28, '24578090379451', '2023-12-21 13:36:03', 11880, 1224, 'admin'),
 (29, '61406169269172', '2023-12-22 06:35:49', 13200, 2544, 'admin'),
 (30, '80441209222128', '2023-12-22 06:40:33', 48200, 9572, 'admin'),
 (31, '93532375259165', '2023-12-22 09:29:46', 6600, 1272, 'admin'),
 (32, '10695719377945', '2023-12-22 09:31:09', 16000, 2800, 'admin'),
 (33, '77524156525714', '2023-12-22 09:34:40', 16000, 2800, 'admin'),
-(34, '53065829816898', '2023-12-22 09:45:00', 65900, 13150, 'admin');
+(34, '53065829816898', '2023-12-22 09:45:00', 65900, 13150, 'admin'),
+(35, '89076519561881', '2023-12-23 10:09:13', 20810, 4160, 'admin'),
+(36, '20468057200337', '2023-12-27 09:23:11', 83240, 16640, 'admin'),
+(37, '80183119897250', '2023-12-27 09:32:19', 208120, 41620, 'admin'),
+(38, '57644824455745', '2023-12-28 02:41:52', 1685770, 187270, 'admin'),
+(39, '24673876858726', '2023-12-30 03:47:41', 416240, 83240, 'admin'),
+(40, '12950219011805', '2024-01-05 13:00:48', 66600, 13320, 'admin'),
+(43, 'INV2242', '2024-01-07 10:26:31', 20000, 1000, 'admin'),
+(44, '209uu93u', '2024-01-07 10:36:38', 10000, 2000, 'admin'),
+(45, 'INV2242', '2024-01-07 10:37:23', 20000, 1000, 'admin'),
+(46, 'INV2242', '2024-01-07 10:38:37', 20000, 1000, 'admin'),
+(47, 'INV2242', '2024-01-07 10:39:07', 20000, 1000, 'admin');
 
 --
 -- Triggers `tbl_t_sales`
 --
+DELIMITER $$
+CREATE TRIGGER `add_report` AFTER INSERT ON `tbl_t_sales` FOR EACH ROW BEGIN
+	DECLARE transaction_date DATE;
+    SELECT DATE(new.transaction_date_tts) INTO transaction_date;
+    
+    IF NOT EXISTS (SELECT * FROM tbl_m_report WHERE report_date_tmre = transaction_date) THEN 
+    INSERT INTO tbl_m_report (report_date_tmre, profit_tmre, income_tmre, qty_tmre) VALUES (transaction_date, NEW.profit_tts, NEW.gross_income_tts, '1');
+    
+    ELSE 
+    UPDATE tbl_m_report SET income_tmre = income_tmre + NEW.gross_income_tts, profit_tmre = profit_tmre + NEW.profit_tts, qty_tmre = qty_tmre + 1 WHERE report_date_tmre = transaction_date;
+    END IF;         
+END
+$$
+DELIMITER ;
 DELIMITER $$
 CREATE TRIGGER `drop_all_product_from_cart` AFTER INSERT ON `tbl_t_sales` FOR EACH ROW BEGIN
 
@@ -481,6 +546,12 @@ ALTER TABLE `tbl_m_factory`
   ADD PRIMARY KEY (`id_factory_tmf`);
 
 --
+-- Indexes for table `tbl_m_opname`
+--
+ALTER TABLE `tbl_m_opname`
+  ADD PRIMARY KEY (`id_opname_tmo`);
+
+--
 -- Indexes for table `tbl_m_product`
 --
 ALTER TABLE `tbl_m_product`
@@ -489,6 +560,12 @@ ALTER TABLE `tbl_m_product`
   ADD KEY `fk_id_warehouse_tmw_tmp` (`id_factory_tmp`),
   ADD KEY `fk_id_unit_tmun_large_tmp` (`id_large_unit_tmp`),
   ADD KEY `fk_id_unit_tmun_small_tmp` (`id_small_unit_tmp`);
+
+--
+-- Indexes for table `tbl_m_report`
+--
+ALTER TABLE `tbl_m_report`
+  ADD PRIMARY KEY (`id_report_tmre`);
 
 --
 -- Indexes for table `tbl_m_suplier`
@@ -530,6 +607,12 @@ ALTER TABLE `tbl_t_purchase`
   ADD KEY `fk_id_suplier_ttp` (`id_suplier_ttp`);
 
 --
+-- Indexes for table `tbl_t_retur`
+--
+ALTER TABLE `tbl_t_retur`
+  ADD PRIMARY KEY (`id_retur_ttr`);
+
+--
 -- Indexes for table `tbl_t_sales`
 --
 ALTER TABLE `tbl_t_sales`
@@ -546,10 +629,22 @@ ALTER TABLE `tbl_m_factory`
   MODIFY `id_factory_tmf` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 
 --
+-- AUTO_INCREMENT for table `tbl_m_opname`
+--
+ALTER TABLE `tbl_m_opname`
+  MODIFY `id_opname_tmo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
 -- AUTO_INCREMENT for table `tbl_m_product`
 --
 ALTER TABLE `tbl_m_product`
   MODIFY `id_product_tmp` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
+
+--
+-- AUTO_INCREMENT for table `tbl_m_report`
+--
+ALTER TABLE `tbl_m_report`
+  MODIFY `id_report_tmre` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `tbl_m_suplier`
@@ -573,25 +668,31 @@ ALTER TABLE `tbl_m_user`
 -- AUTO_INCREMENT for table `tbl_t_cart`
 --
 ALTER TABLE `tbl_t_cart`
-  MODIFY `id_ttc` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=86;
+  MODIFY `id_ttc` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=112;
 
 --
 -- AUTO_INCREMENT for table `tbl_t_list_purchase`
 --
 ALTER TABLE `tbl_t_list_purchase`
-  MODIFY `id_list_ttlp` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=90;
+  MODIFY `id_list_ttlp` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=105;
 
 --
 -- AUTO_INCREMENT for table `tbl_t_purchase`
 --
 ALTER TABLE `tbl_t_purchase`
-  MODIFY `id_purchase_ttp` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
+  MODIFY `id_purchase_ttp` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
+
+--
+-- AUTO_INCREMENT for table `tbl_t_retur`
+--
+ALTER TABLE `tbl_t_retur`
+  MODIFY `id_retur_ttr` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `tbl_t_sales`
 --
 ALTER TABLE `tbl_t_sales`
-  MODIFY `id_sales_tts` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
+  MODIFY `id_sales_tts` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=48;
 
 --
 -- Constraints for dumped tables

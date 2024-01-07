@@ -47,7 +47,7 @@
       </a>
       <ul id="components-nav-product" class="nav-content collapse " data-bs-parent="#sidebar-nav">
         <li>
-          <a href="<?= BASEURL ?>masterdata/masterproduct">
+          <a href="<?= BASEURL ?>retur/index">
             <i class="bi bi-circle"></i><span>Retur Produk</span>
           </a>
         </li>

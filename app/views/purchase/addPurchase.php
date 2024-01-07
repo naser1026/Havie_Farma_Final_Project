@@ -24,7 +24,7 @@ if (empty($data['list_product'])) {
         <div class="row">
             <!-- Start Ngoding Disini -->
             <h2 class="card-title display-7 py-2 bg-success text-white rounded-3"> <i class=" bx bx-list-ul mt-2 mx-2"></i>Form Transaksi
-                Penerimaan Barang</h2>
+                Penerimaan Produk</h2>
             <div class="card">
                 
                 
@@ -45,7 +45,7 @@ if (empty($data['list_product'])) {
                                     </div>
                                     <div class="col-4">
                                         <label for="">Tanggal Faktur</label>
-                                        <input type="date" name = "invoice_date" id="invoiceDate" class="form-control" value = "<?php if (empty($_SESSION['invoice_date'])) {
+                                        <input type="date" required name = "invoice_date" id="invoiceDate" class="form-control" value = "<?php if (empty($_SESSION['invoice_date'])) {
                                             echo "";
                                         } else {
                                             echo $_SESSION['invoice_date'];
@@ -53,7 +53,7 @@ if (empty($data['list_product'])) {
                                     </div>
                                     <div class="col-4">
                                         <label for="">Tanggal Bayar</label>
-                                        <input type="Date" name = "payment_date" id = "paymentDate" value = "<?php if (empty($_SESSION['payment_date'])) {
+                                        <input type="Date" required name = "payment_date" id = "paymentDate" value = "<?php if (empty($_SESSION['payment_date'])) {
                                             echo "";
                                         } else {
                                             echo $_SESSION['payment_date'];
@@ -162,7 +162,7 @@ if (empty($data['list_product'])) {
                                 <tr>
                                     <th>#</th>
                                     <th>Barcode</th>
-                                    <th>Nama Barang</th>
+                                    <th>Nama Produk</th>
                                     <th>Harga</th>
                                     <th>PPN</th>
                                     <th>Jumlah</th>

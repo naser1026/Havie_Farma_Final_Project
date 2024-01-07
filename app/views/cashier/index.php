@@ -1,10 +1,9 @@
-
 <main id="main" class="main">
     <div class="pagetitle">
         <h1>Kasir</h1>
         <nav>
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="<?=BASEURL?>/home">Home</a></li>
+                <li class="breadcrumb-item"><a href="<?= BASEURL ?>/home">Home</a></li>
                 <li class="breadcrumb-item active">Kasir</li>
             </ol>
         </nav>
@@ -27,7 +26,9 @@
                     </div>
                     <div class="card-body">
                         <span class="badge rounded-pill text-bg-secondary"><b>No Invoice</b></span>
-                        <h2><b><?=$data['invoice_number']?></b></h2>
+                        <h2><b>
+                                <?= $data['invoice_number'] ?>
+                            </b></h2>
 
                         <div class="card col-lg-12">
                             <div class="card-header">
@@ -96,7 +97,7 @@
                         <b>Pembayaran</b>
                     </div>
 
-                    <input type="hidden" name="invoice_number" value="<?=$data['invoice_number']?>">
+                    <input type="hidden" name="invoice_number" value="<?= $data['invoice_number'] ?>">
                     <input type="hidden" name="str_qty_list" id="strQtyList">
                     <input type="hidden" name="str_id_list" id="strIdList">
                     <input type="hidden" name="capital_price" id="capitalPrice">
@@ -105,12 +106,12 @@
                             <h3><b>Total Bayar</b></h3>
                         </label>
 
-                        <input class=form-control readonly name="total_payment" type="number" id="totalPayment" required>
+                        <input class=form-control readonly name="total_payment" type="text" id="totalPayment" required>
 
                         <div class="row mt-3">
                             <div class="col-lg-8 mt-3">
                                 <label for=""><b>Sub Total Bayar</b></label>
-                                <input type="number" readonly name="sub_total_payment" id="subTotalPayment" 
+                                <input type="text" readonly name="sub_total_payment" id="subTotalPayment"
                                     class="form-control">
                             </div>
                             <div class="col-lg-4 mt-3">
@@ -120,14 +121,15 @@
                             </div>
                         </div>
 
+
                         <div class="row mt-3">
                             <div class="col-lg-6 mt-3">
-                                <label for=""><b>Bayar</b></label>
+                                <label for=""><b>Bayar</b>(Rp)</label>
                                 <input type="number" id="payment" name="payment" class="form-control" required>
                             </div>
                             <div class="col-lg-6 mt-3">
                                 <label for=""><b>Kembali</b></label>
-                                <input type="number" readonly name="return" id="return" class="form-control">
+                                <input type="text" readonly name="return" id="return" class="form-control">
                             </div>
                         </div>
 
@@ -136,8 +138,8 @@
                         <div class="row">
                             <div class="col-xl-9"></div>
                             <div class="col">
-                                <button type="submit" class="btn btn-success btn-block" onclick="return confirm('Yakin?')"><i
-                                        class="ri-money-dollar-circle-line"></i> Bayar
+                                <button type="submit" class="btn btn-success btn-block"
+                                    onclick="return confirm('Yakin?')"><i class="ri-money-dollar-circle-line"></i> Bayar
                                 </button>
                             </div>
                         </div>
@@ -179,7 +181,7 @@
                         ?>
                         <tr>
                             <td>
-                                <?= $no?>
+                                <?= $no ?>
                             </td>
                             <td>
                                 <?= $row['small_barcode_tmp'] ?>
@@ -199,12 +201,13 @@
                             <td>
                                 <?= Util::format_rupiah($total_product_price) ?>
                             </td>
-                            <td><a href="<?=BASEURL?>cashier/deleteProductCart/<?=$row['id_ttc']?>" class="btn btn-danger"><i class="bx  bxs-trash"></i></a></td>
+                            <td><a href="<?= BASEURL ?>cashier/deleteProductCart/<?= $row['id_ttc'] ?>"
+                                    class="btn btn-danger"><i class="bx  bxs-trash"></i></a></td>
 
-                            <?php $no += 1;endforeach;
-                                $str_qty_list = json_encode($str_qty_list);
-                                $str_id_list = json_encode($str_id_list);
-                            ?>
+                            <?php $no += 1; endforeach;
+                    $str_qty_list = json_encode($str_qty_list);
+                    $str_id_list = json_encode($str_id_list);
+                    ?>
 
                     </tr>
                 </tbody>
@@ -220,18 +223,18 @@
 
 
     <script>
+        function formatRupiah(number) {
 
-        function formatRupiah(angka) {
-            var bilangan = angka;
+            let amount = parseInt(number, 10);
 
-            var numberFormatOptions = {
-                style: 'currency',
-                currency: 'IDR',
-                minimumFractionDigits: 0
-            };
+            if (isNaN(amount)) {
+                return "Invalid input";
+            }
 
-            return bilangan.toLocaleString('id-ID', numberFormatOptions);
+            return amount.toLocaleString('id-ID', { style: 'currency', currency: 'IDR' }).slice(0, -3);
         }
+
+
         var selectOption = document.getElementById('produk');
         var stock = document.getElementById('stock');
         var price = document.getElementById('price');
@@ -240,9 +243,9 @@
         var totalPayment = document.getElementById('totalPayment');
         var payment = document.getElementById('payment');
         var returnPayment = document.getElementById('return');
-        var capitalPrice =document.getElementById('capitalPrice');
-        var strQtyList =document.getElementById('strQtyList');
-        var strIdList =document.getElementById('strIdList');
+        var capitalPrice = document.getElementById('capitalPrice');
+        var strQtyList = document.getElementById('strQtyList');
+        var strIdList = document.getElementById('strIdList');
 
 
         // Mendengarkan perubahan pada elemen select
@@ -254,34 +257,39 @@
             var final_price = Math.floor(final_price + (final_price * 0.25));
             // Memberikan nilai ke elemen input teks
             stock.value = array[0];
-            price.value = "Rp. " + final_price.toString();
+            price.value = formatRupiah(final_price);
             id.value = array[2]
         });
 
-        subTotalPayment.value = <?= $total_price; ?>
+        totalPrice = parseInt(<?= $total_price; ?>)
 
-
-
-
+        subTotalPayment.value = formatRupiah(totalPrice)
 
         discount.addEventListener('input', function () {
+            totalDiscount = totalPrice * discount.value / 100;
+            bufferTotalPayment = totalPrice - totalDiscount;
+            bufferTotalPayment = Math.floor(bufferTotalPayment / 10) * 10
+            totalPayment.value = formatRupiah(bufferTotalPayment)
+            payment.addEventListener('input', function () {
+                returnPayment.value = payment.value - bufferTotalPayment;
+                if (returnPayment.value < 0) {
+                    returnPayment.value = 0
+                }
+                returnPayment.value = formatRupiah(returnPayment.value)
+            })
 
-            totalPayment.value = subTotalPayment.value - (subTotalPayment.value * discount.value / 100);
-            totalPayment.value = Math.floor(totalPayment.value / 10) * 10
         })
 
-        payment.addEventListener('input', function () {
-            returnPayment.value = payment.value - totalPayment.value;
-        })
+
 
         capitalPrice.value = <?= $total_capital; ?>;
 
-        strQtyList.value = <?=$str_qty_list?>;
-        strIdList.value = <?=$str_id_list?>;
-        
+        strQtyList.value = <?= $str_qty_list ?>;
+        strIdList.value = <?= $str_id_list ?>;
 
 
 
-       
-        
+
+
+
     </script>

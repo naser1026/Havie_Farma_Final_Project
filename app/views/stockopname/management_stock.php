@@ -1,7 +1,7 @@
 <div class="tab-pane fade active show" id="manajemen_stock" role="tabpanel" aria-labelledby="manajemen_stock-tab">
 
     <div class="card mt-2">
-        <div class="card-header">
+        <div class="card-header bg-success text-light">
             <h6 class="fw-bold fs-9">Stok Produk</h6>
         </div>
 

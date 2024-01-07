@@ -109,5 +109,12 @@ class Purchase_model
 
     }
 
+    public function getPurchaseById($id){
+        $query = "SELECT invoice_number_ttp, name_tms, invoice_date_ttp, status_ttp, payment_date_ttp, total_payment_ttp, list_id_product_ttp, list_qty_ttp  FROM tbl_t_purchase JOIN tbl_m_suplier ON tbl_t_purchase.id_suplier_ttp = id_suplier_tms WHERE id_purchase_ttp = :id";
+        $this->db->query($query);
+        $this->db->bind("id", $id);
+        return $this->db->single();
+    }
+    
 
 }

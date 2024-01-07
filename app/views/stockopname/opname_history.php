@@ -1,7 +1,7 @@
 <div class="tab-pane fade" id="opname_history" role="tabpanel" aria-labelledby="adjusment_stock-tab">
 
     <div class="card mt-2">
-        <div class="card-header">
+        <div class="card-header bg-success text-light">
             <span class="card-title">Riwayat Penyesuaian Stok</span>
         </div>
 
@@ -24,7 +24,7 @@
                     </tr>
                     <tr>
                         <th>Sesuai</th>
-                        <th>Kelebhan</th>
+                        <th>Kelebihan</th>
                         <th>Kurang</th>
                     </tr>
                 </thead>

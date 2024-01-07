@@ -13,12 +13,12 @@
     <section class="section masterdata">
         <div class="row">
             <!-- Start Ngoding Disini -->
-            <h2 class="card-title display-7 py-2 bg-success text-white rounded-3"> <i class=" bx bx-list-ul mt-2 mx-2"></i>LIst Penerimaan Barang</h2>
+            <h2 class="card-title display-7 py-2 bg-success text-white rounded-3"> <i class=" bx bx-list-ul mt-2 mx-2"></i>LIst Penerimaan Produk</h2>
             <div class="card">
 
                 
                     <div class="my-3 px-2">
-                        <a class="btn btn-primary" href="<?=BASEURL?>purchase/purchase_form"> <i class="ri-add-fill"></i> Tambah Penerimaan Barang</a>
+                        <a class="btn btn-primary" href="<?=BASEURL?>purchase/purchase_form"> <i class="ri-add-fill"></i> Tambah Penerimaan Produk</a>
                     </div>
 
                     <div class="px-3">
